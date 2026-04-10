@@ -8,13 +8,15 @@
  */
 function getGA4ClientId(): Promise<string | null> {
   return new Promise((resolve) => {
-    if (typeof window === 'undefined' || !window.gtag) {
+    const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+
+    if (typeof window === 'undefined' || !window.gtag || !gaId) {
       resolve(null);
       return;
     }
-    
+
     // Try to get client_id from gtag
-    window.gtag('get', 'G-LJEBV5NPCT', 'client_id', (clientId: string) => {
+    window.gtag('get', gaId, 'client_id', (clientId: string) => {
       if (clientId) {
         console.log('✅ GA4 Client ID:', clientId);
         resolve(clientId);

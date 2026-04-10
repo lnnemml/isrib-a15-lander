@@ -31,11 +31,13 @@ export default function Hero({ onOpenEmail }: HeroProps) {
       if (utmContent) checkoutUrl.searchParams.set('utm_content', utmContent);
       
       // Get linker parameter from gtag (ASYNC with timeout)
-      if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined') {
+      const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+
+      if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined' && gaId) {
         let resolved = false;
-        
+
         // Try to get linker param with timeout
-        window.gtag('get', 'G-LJEBV5NPCT', 'linker_param', (lp: string) => {
+        window.gtag('get', gaId, 'linker_param', (lp: string) => {
           if (!resolved && lp) {
             resolved = true;
             checkoutUrl.searchParams.set('_gl', lp);

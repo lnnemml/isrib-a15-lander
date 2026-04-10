@@ -87,10 +87,11 @@ export default function CTASection() {
     
     // Try to get linker param (but don't wait for it)
     let linkerParam: string | null = null;
-    
-    if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined') {
+    const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+
+    if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined' && gaId) {
       try {
-        window.gtag('get', 'G-LJEBV5NPCT', 'linker_param', (lp: string) => {
+        window.gtag('get', gaId, 'linker_param', (lp: string) => {
           if (lp) {
             linkerParam = lp;
             console.log('[Analytics] Got linker param:', lp);

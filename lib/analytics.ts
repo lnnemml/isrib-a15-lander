@@ -13,8 +13,8 @@ declare global {
 // CONFIGURATION
 // ============================================
 
-export const GTM_ID = 'GTM-M2QCB45Q';
-export const REDDIT_PIXEL_ID = 't2_wsjciqh5'; // Your Reddit Pixel ID
+export const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-XXXXXXX';
+export const REDDIT_PIXEL_ID = process.env.NEXT_PUBLIC_REDDIT_PIXEL_ID || 'REDDIT_PIXEL_XXXXXXX';
 
 // Debug mode
 const DEBUG = process.env.NODE_ENV === 'development';
