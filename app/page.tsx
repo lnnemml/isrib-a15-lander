@@ -14,7 +14,6 @@ import PurityGuarantee from '@/components/PurityGuarantee';
 import Experience from '@/components/Experience';
 import CTASection from '@/components/CTASection';
 import FAQ from '@/components/FAQ';
-import { initCrossDomainTracking } from '@/utils/cross-domain-linker';
 
 function HomeContent() {
   const [showEmailModal, setShowEmailModal] = useState(false);
@@ -23,10 +22,10 @@ function HomeContent() {
   // Track landing view with source detection
   useEffect(() => {
     // Перевіряємо чи користувач прийшов з prelanding
-    const isFromPrelanding = 
+    const isFromPrelanding =
       searchParams?.get('utm_campaign') === 'prelander' ||
       document.referrer.includes('/research');
-    
+
     if (isFromPrelanding) {
       // Якщо з prelanding - використовуємо старий event
       trackLandingViewFromPrelanding();
@@ -35,15 +34,6 @@ function HomeContent() {
       trackLandingView();
     }
   }, [searchParams]);
-
-  useEffect(() => {
-    // Додай невеликий delay щоб GTM/GA4 встигли завантажитись
-    const timer = setTimeout(() => {
-      initCrossDomainTracking();
-    }, 2000);
-    
-    return () => clearTimeout(timer);
-  }, []);
 
   return (
     <main className="min-h-screen">

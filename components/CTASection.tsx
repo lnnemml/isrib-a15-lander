@@ -1,9 +1,8 @@
 'use client';
 
 import { trackProductView, trackBuyClick, trackFormatSwitch } from '@/lib/analytics';
+import { appendTrackingParams } from '@/utils/cross-domain-linker';
 import { useEffect, useState } from 'react';
-
-// Declare gtag as global
 
 
 type ProductFormat = 'powder' | 'capsules';
@@ -60,21 +59,21 @@ export default function CTASection() {
     }
   };
 
-  const handleBuyClick = (
+  const handleBuyClick = async (
     product: '500mg' | '1g' | '25-capsules' | '50-capsules',
     price: number,
     location: string
   ) => {
     // Track buy click FIRST (before redirect)
     trackBuyClick(product, price, location, selectedFormat);
-    
+
     // Get UTM parameters from current URL
     const urlParams = new URLSearchParams(window.location.search);
     const utmSource = urlParams.get('utm_source') || 'direct';
     const utmCampaign = urlParams.get('utm_campaign') || 'none';
     const utmMedium = urlParams.get('utm_medium') || '';
     const utmContent = urlParams.get('utm_content') || '';
-    
+
     // Build checkout URL with all attribution data
     const checkoutUrl = new URL(`https://isrib.shop/buy-${product}.html`);
     checkoutUrl.searchParams.set('product', product);
@@ -84,34 +83,11 @@ export default function CTASection() {
     checkoutUrl.searchParams.set('utm_campaign', utmCampaign);
     if (utmMedium) checkoutUrl.searchParams.set('utm_medium', utmMedium);
     if (utmContent) checkoutUrl.searchParams.set('utm_content', utmContent);
-    
-    // Try to get linker param (but don't wait for it)
-    let linkerParam: string | null = null;
-    const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
-    if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined' && gaId) {
-      try {
-        window.gtag('get', gaId, 'linker_param', (lp: string) => {
-          if (lp) {
-            linkerParam = lp;
-            console.log('[Analytics] Got linker param:', lp);
-          }
-        });
-      } catch (error) {
-        console.warn('[Analytics] Error getting linker param:', error);
-      }
-    }
-    
-    // Wait 150ms for linker param, then redirect anyway
-    setTimeout(() => {
-      if (linkerParam) {
-        checkoutUrl.searchParams.set('_gl', linkerParam);
-        console.log('[Analytics] Redirecting with linker param');
-      } else {
-        console.log('[Analytics] Redirecting without linker param');
-      }
-      window.location.href = checkoutUrl.toString();
-    }, 150);
+    // Append tracking parameters (fbp, fbc, gacid) and redirect
+    const baseUrl = checkoutUrl.toString();
+    const enhancedUrl = await appendTrackingParams(baseUrl);
+    window.location.href = enhancedUrl;
   };
 
   return (

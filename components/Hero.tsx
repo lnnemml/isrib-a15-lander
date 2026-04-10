@@ -1,6 +1,7 @@
 'use client';
 
 import { trackButtonClick, trackBuyClick } from '@/lib/analytics';
+import { appendTrackingParams } from '@/utils/cross-domain-linker';
 
 
 
@@ -9,18 +10,18 @@ interface HeroProps {
 }
 
 export default function Hero({ onOpenEmail }: HeroProps) {
-  const handleCTAClick = (type: 'primary' | 'secondary') => {
+  const handleCTAClick = async (type: 'primary' | 'secondary') => {
     if (type === 'primary') {
       // This is a buy button, track it properly
       trackBuyClick('1g', 200, 'hero');
-      
+
       // Get UTM parameters
       const urlParams = new URLSearchParams(window.location.search);
       const utmSource = urlParams.get('utm_source') || 'direct';
       const utmCampaign = urlParams.get('utm_campaign') || 'none';
       const utmMedium = urlParams.get('utm_medium') || '';
       const utmContent = urlParams.get('utm_content') || '';
-      
+
       // Redirect to checkout with attribution
       const checkoutUrl = new URL('https://isrib.shop/buy-1g.html');
       checkoutUrl.searchParams.set('product', '1g');
@@ -29,36 +30,11 @@ export default function Hero({ onOpenEmail }: HeroProps) {
       checkoutUrl.searchParams.set('utm_campaign', utmCampaign);
       if (utmMedium) checkoutUrl.searchParams.set('utm_medium', utmMedium);
       if (utmContent) checkoutUrl.searchParams.set('utm_content', utmContent);
-      
-      // Get linker parameter from gtag (ASYNC with timeout)
-      const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
-      if (typeof window !== 'undefined' && typeof window.gtag !== 'undefined' && gaId) {
-        let resolved = false;
-
-        // Try to get linker param with timeout
-        window.gtag('get', gaId, 'linker_param', (lp: string) => {
-          if (!resolved && lp) {
-            resolved = true;
-            checkoutUrl.searchParams.set('_gl', lp);
-            console.log('[Analytics] Got linker param:', lp);
-            window.location.href = checkoutUrl.toString();
-          }
-        });
-        
-        // Fallback: redirect after 300ms even without linker
-        setTimeout(() => {
-          if (!resolved) {
-            resolved = true;
-            console.warn('[Analytics] Linker param timeout, redirecting without it');
-            window.location.href = checkoutUrl.toString();
-          }
-        }, 300);
-      } else {
-        // No gtag available, redirect immediately
-        console.warn('[Analytics] gtag not available, redirecting without linker');
-        window.location.href = checkoutUrl.toString();
-      }
+      // Append tracking parameters (fbp, fbc, gacid) and redirect
+      const baseUrl = checkoutUrl.toString();
+      const enhancedUrl = await appendTrackingParams(baseUrl);
+      window.location.href = enhancedUrl;
     } else {
       trackButtonClick('Get the Full Story', 'hero');
       onOpenEmail();
