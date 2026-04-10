@@ -2,12 +2,59 @@
 // Appends GA4 Client ID and Meta cookies to all checkout links
 // Use on isrib-research.com (Next.js landing page)
 
+let cachedGAClientId: string | null = null;
+
+/**
+ * Initialize and cache GA4 Client ID on page load
+ */
+export function initGA4ClientIdCache(): void {
+  if (typeof window === 'undefined') return;
+
+  const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+  if (!gaId) return;
+
+  // Try gtag first
+  const tryGtag = () => {
+    if (window.gtag) {
+      window.gtag('get', gaId, 'client_id', (clientId: string) => {
+        if (clientId) {
+          cachedGAClientId = clientId;
+          console.log('✅ GA4 Client ID cached:', clientId);
+        }
+      });
+    }
+  };
+
+  // Try immediately, then retry after 2s and 5s for slow GTM loads
+  tryGtag();
+  setTimeout(tryGtag, 2000);
+  setTimeout(tryGtag, 5000);
+
+  // Also try from _ga cookie as fallback
+  setTimeout(() => {
+    if (!cachedGAClientId) {
+      const gaCookie = document.cookie.split('; ').find(r => r.startsWith('_ga='));
+      if (gaCookie) {
+        const parts = gaCookie.split('=')[1].split('.');
+        if (parts.length >= 4) {
+          cachedGAClientId = `${parts[2]}.${parts[3]}`;
+          console.log('✅ GA4 Client ID cached (from cookie):', cachedGAClientId);
+        }
+      }
+    }
+  }, 1000);
+}
 
 /**
  * Get GA4 Client ID from gtag
  */
 function getGA4ClientId(): Promise<string | null> {
   return new Promise((resolve) => {
+    if (cachedGAClientId) {
+      resolve(cachedGAClientId);
+      return;
+    }
+
     const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
 
     if (typeof window === 'undefined' || !window.gtag || !gaId) {
@@ -18,19 +65,20 @@ function getGA4ClientId(): Promise<string | null> {
     // Try to get client_id from gtag
     window.gtag('get', gaId, 'client_id', (clientId: string) => {
       if (clientId) {
+        cachedGAClientId = clientId;
         console.log('✅ GA4 Client ID:', clientId);
         resolve(clientId);
       } else {
         // Fallback: try to get from _ga cookie
-        const gaCookie = getCookie('_ga');
+        const gaCookie = document.cookie.split('; ').find(r => r.startsWith('_ga='));
         if (gaCookie) {
           // _ga cookie format: GA1.2.XXXXXXXXXX.YYYYYYYYYY
           // Client ID is: XXXXXXXXXX.YYYYYYYYYY
-          const parts = gaCookie.split('.');
+          const parts = gaCookie.split('=')[1].split('.');
           if (parts.length >= 4) {
-            const clientId = `${parts[2]}.${parts[3]}`;
-            console.log('✅ GA4 Client ID (from cookie):', clientId);
-            resolve(clientId);
+            cachedGAClientId = `${parts[2]}.${parts[3]}`;
+            console.log('✅ GA4 Client ID (from cookie):', cachedGAClientId);
+            resolve(cachedGAClientId);
             return;
           }
         }

@@ -1,7 +1,6 @@
 'use client';
 
-import { trackButtonClick, trackBuyClick } from '@/lib/analytics';
-import { appendTrackingParams } from '@/utils/cross-domain-linker';
+import { trackButtonClick } from '@/lib/analytics';
 
 
 
@@ -10,31 +9,12 @@ interface HeroProps {
 }
 
 export default function Hero({ onOpenEmail }: HeroProps) {
-  const handleCTAClick = async (type: 'primary' | 'secondary') => {
+  const handleCTAClick = (type: 'primary' | 'secondary') => {
     if (type === 'primary') {
-      // This is a buy button, track it properly
-      trackBuyClick('1g', 200, 'hero');
-
-      // Get UTM parameters
-      const urlParams = new URLSearchParams(window.location.search);
-      const utmSource = urlParams.get('utm_source') || 'direct';
-      const utmCampaign = urlParams.get('utm_campaign') || 'none';
-      const utmMedium = urlParams.get('utm_medium') || '';
-      const utmContent = urlParams.get('utm_content') || '';
-
-      // Redirect to checkout with attribution
-      const checkoutUrl = new URL('https://isrib.shop/buy-1g.html');
-      checkoutUrl.searchParams.set('product', '1g');
-      checkoutUrl.searchParams.set('amount', '200');
-      checkoutUrl.searchParams.set('utm_source', utmSource);
-      checkoutUrl.searchParams.set('utm_campaign', utmCampaign);
-      if (utmMedium) checkoutUrl.searchParams.set('utm_medium', utmMedium);
-      if (utmContent) checkoutUrl.searchParams.set('utm_content', utmContent);
-
-      // Append tracking parameters (fbp, fbc, gacid) and redirect
-      const baseUrl = checkoutUrl.toString();
-      const enhancedUrl = await appendTrackingParams(baseUrl);
-      window.location.href = enhancedUrl;
+      const ctaSection = document.getElementById('cta-section');
+      if (ctaSection) {
+        ctaSection.scrollIntoView({ behavior: 'smooth' });
+      }
     } else {
       trackButtonClick('Get the Full Story', 'hero');
       onOpenEmail();
@@ -75,9 +55,12 @@ export default function Hero({ onOpenEmail }: HeroProps) {
         </div>
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-          <a 
-            href="https://isrib.shop/buy-1g.html"
-            onClick={() => handleCTAClick('primary')}
+          <a
+            href="#cta-section"
+            onClick={(e) => {
+              e.preventDefault();
+              handleCTAClick('primary');
+            }}
             className="btn-primary w-full sm:w-auto"
           >
             Try ISRIB A15

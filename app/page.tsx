@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { trackLandingViewFromPrelanding, trackLandingView } from '@/lib/analytics';
+import { initGA4ClientIdCache } from '@/utils/cross-domain-linker';
 import EmailCapture from '@/components/EmailCapture';
 import EmailCaptureInline from '@/components/EmailCaptureInline';
 import Hero from '@/components/Hero';
@@ -34,6 +35,13 @@ function HomeContent() {
       trackLandingView();
     }
   }, [searchParams]);
+
+  // Initialize GA4 Client ID cache
+  useEffect(() => {
+    setTimeout(() => {
+      initGA4ClientIdCache();
+    }, 1500);
+  }, []);
 
   return (
     <main className="min-h-screen">
