@@ -4,6 +4,7 @@ import { useState } from 'react';
 
 export default function EmailCaptureInline() {
   const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState('');
@@ -15,19 +16,15 @@ export default function EmailCaptureInline() {
     
     try {
       // Send to n8n webhook
-      const response = await fetch('https://isrib.app.n8n.cloud/webhook/isrib-signup', {
+      const response = await fetch('https://isrib.shop/api/leads?action=subscribe', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           email: email.trim().toLowerCase(),
-          source: 'landing_page_inline',
-          timestamp: new Date().toISOString(),
-          utm_source: typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('utm_source') : null,
-          utm_medium: typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('utm_medium') : null,
-          utm_campaign: typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('utm_campaign') : null,
-          page_url: typeof window !== 'undefined' ? window.location.href : null,
+          name: name.trim(),
+          source: 'landing',
         }),
       });
       
@@ -40,7 +37,8 @@ export default function EmailCaptureInline() {
       
       setIsSubmitted(true);
       setEmail('');
-      
+      setName('');
+
       // Reset after 5 seconds
       setTimeout(() => {
         setIsSubmitted(false);
@@ -52,13 +50,13 @@ export default function EmailCaptureInline() {
       // Auto-retry once after 1 second
       setTimeout(async () => {
         try {
-          const retryResponse = await fetch('https://isrib.app.n8n.cloud/webhook/isrib-signup', {
+          const retryResponse = await fetch('https://isrib.shop/api/leads?action=subscribe', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
+            body: JSON.stringify({
               email: email.trim().toLowerCase(),
-              source: 'landing_page_inline_retry',
-              timestamp: new Date().toISOString(),
+              name: name.trim(),
+              source: 'landing',
             }),
           });
           
@@ -66,6 +64,7 @@ export default function EmailCaptureInline() {
             setError('');
             setIsSubmitted(true);
             setEmail('');
+            setName('');
             setTimeout(() => setIsSubmitted(false), 5000);
           }
         } catch (retryError) {
@@ -91,22 +90,32 @@ export default function EmailCaptureInline() {
               </p>
               
               <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-                <div className="flex flex-col sm:flex-row gap-4 mb-4">
+                <div className="flex flex-col gap-4 mb-4">
                   <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Enter your email"
-                    required
-                    className="flex-1 px-6 py-4 bg-primary border-2 border-accent/30 rounded-lg text-white text-lg focus:outline-none focus:border-accent transition-all"
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Your first name"
+                    maxLength={50}
+                    className="w-full px-6 py-4 bg-primary border-2 border-accent/30 rounded-lg text-white text-lg focus:outline-none focus:border-accent transition-all"
                   />
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="btn-primary whitespace-nowrap"
-                  >
-                    {isSubmitting ? 'Sending...' : 'Send Me the Series'}
-                  </button>
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <input
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="Enter your email"
+                      required
+                      className="flex-1 px-6 py-4 bg-primary border-2 border-accent/30 rounded-lg text-white text-lg focus:outline-none focus:border-accent transition-all"
+                    />
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="btn-primary whitespace-nowrap"
+                    >
+                      {isSubmitting ? 'Sending...' : 'Send Me the Series'}
+                    </button>
+                  </div>
                 </div>
                 
                 {error && (

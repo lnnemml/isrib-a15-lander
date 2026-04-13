@@ -10,6 +10,7 @@ interface EmailCaptureProps {
 
 export default function EmailCapture({ isOpen, onClose }: EmailCaptureProps) {
   const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState('');
@@ -23,19 +24,15 @@ export default function EmailCapture({ isOpen, onClose }: EmailCaptureProps) {
     
     try {
       // Send to n8n webhook
-      const response = await fetch('https://isrib.app.n8n.cloud/webhook/isrib-signup', {
+      const response = await fetch('https://isrib.shop/api/leads?action=subscribe', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           email: email.trim().toLowerCase(),
-          source: 'landing_page_modal',
-          timestamp: new Date().toISOString(),
-          utm_source: typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('utm_source') : null,
-          utm_medium: typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('utm_medium') : null,
-          utm_campaign: typeof window !== 'undefined' ? new URLSearchParams(window.location.search).get('utm_campaign') : null,
-          page_url: typeof window !== 'undefined' ? window.location.href : null,
+          name: name.trim(),
+          source: 'landing',
         }),
       });
       
@@ -61,6 +58,7 @@ export default function EmailCapture({ isOpen, onClose }: EmailCaptureProps) {
         onClose();
         setIsSubmitted(false);
         setEmail('');
+        setName('');
         setError('');
       }, 2500);
     } catch (error) {
@@ -70,13 +68,13 @@ export default function EmailCapture({ isOpen, onClose }: EmailCaptureProps) {
       // Auto-retry once after 1 second
       setTimeout(async () => {
         try {
-          const retryResponse = await fetch('https://isrib.app.n8n.cloud/webhook/isrib-signup', {
+          const retryResponse = await fetch('https://isrib.shop/api/leads?action=subscribe', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
+            body: JSON.stringify({
               email: email.trim().toLowerCase(),
-              source: 'landing_page_modal_retry',
-              timestamp: new Date().toISOString(),
+              name: name.trim(),
+              source: 'landing',
             }),
           });
           
@@ -87,6 +85,7 @@ export default function EmailCapture({ isOpen, onClose }: EmailCaptureProps) {
               onClose();
               setIsSubmitted(false);
               setEmail('');
+              setName('');
             }, 2500);
           }
         } catch (retryError) {
@@ -137,6 +136,14 @@ export default function EmailCapture({ isOpen, onClose }: EmailCaptureProps) {
             </ul>
             
             <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Your first name"
+                maxLength={50}
+                className="w-full px-4 py-3 bg-primary border border-accent/30 rounded-lg mb-4 text-white focus:outline-none focus:border-accent"
+              />
               <input
                 type="email"
                 value={email}
