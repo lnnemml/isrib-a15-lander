@@ -21,6 +21,35 @@ export default function GoogleTagManager() {
           `,
         }}
       />
+      {/* Microsoft Clarity */}
+      <Script
+        id="clarity-init"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+(function(c,l,a,r,i,t,y){
+  c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+  t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window,document,"clarity","script","wci589fgdr");
+          `,
+        }}
+      />
+      <Script
+        id="clarity-utm"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+(function(){
+  var utm = window.ISRIBTracking && window.ISRIBTracking.getUTM
+    ? window.ISRIBTracking.getUTM() : {};
+  if (utm.utm_content)  window.clarity("set","creative",utm.utm_content);
+  if (utm.utm_source)   window.clarity("set","source",utm.utm_source);
+  if (utm.utm_campaign) window.clarity("set","campaign",utm.utm_campaign);
+})();
+          `,
+        }}
+      />
     </>
   );
 }
