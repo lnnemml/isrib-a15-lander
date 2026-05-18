@@ -1,82 +1,97 @@
 export default function Problem() {
   return (
-    <section className="py-20 px-4 bg-secondary/30">
+    <section className="py-24 px-4 bg-secondary">
       <div className="max-w-4xl mx-auto">
+
         <h2 className="section-heading text-center">
           The Hidden Brake Blocking Your Cognition
         </h2>
-        
-        <p className="section-subheading text-center">
-          You've tried nootropics. Maybe even prescription meds. Some gave you a buzz, most did nothing.
-        </p>
-        
-        <div className="bg-secondary/50 border-l-4 border-accent p-8 rounded-r-lg mb-12">
-          <p className="text-lg leading-relaxed mb-6">
-            When your body senses stress — from overwork, poor sleep, inflammation, or aging — your neurons activate something called the <span className="text-accent font-semibold">Integrated Stress Response (ISR)</span>.
+
+        {/* VOC agitation */}
+        <div className="max-w-2xl mx-auto mb-16 text-center">
+          <p className="text-lg text-text-secondary leading-relaxed mb-4">
+            You haven't lost your intelligence. You haven't gotten lazy. Your drive is the same.
           </p>
-          <p className="text-lg leading-relaxed mb-6">
-            It's a molecular emergency brake that stops your brain from "overheating."
-          </p>
-          <p className="text-lg leading-relaxed">
-            For a few hours, that's protective. But in modern life, <span className="font-semibold">the ISR never turns off</span>.
+          <p className="text-lg text-text-secondary leading-relaxed">
+            But information doesn't stick. Tasks take 3x longer. The sharp version of yourself
+            feels like a different person.
           </p>
         </div>
-        
-        <div className="grid md:grid-cols-2 gap-8 mb-12">
-          <div className="bg-primary p-6 rounded-lg">
-            <h3 className="text-xl font-bold mb-4 text-accent">When ISR is Active:</h3>
-            <ul className="space-y-3 text-gray-300">
-              <li className="flex items-start">
-                <span className="text-accent mr-2">✗</span>
-                <span>Protein synthesis halts in neurons</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-accent mr-2">✗</span>
-                <span>Memory formation blocked</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-accent mr-2">✗</span>
-                <span>Mental clarity deteriorates</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-accent mr-2">✗</span>
-                <span>Motivation disappears</span>
-              </li>
-            </ul>
+
+        {/* VOC quotes — positioned BEFORE mechanism */}
+        <div className="grid md:grid-cols-2 gap-4 mb-16">
+          <div className="quote-block">
+            <p className="mb-3">"My ADHD meds stopped working. Turns out my brain had a 'brake' on."</p>
+            <p className="text-xs text-text-secondary not-italic">Software engineer, 31</p>
           </div>
-          
-          <div className="bg-primary p-6 rounded-lg">
-            <h3 className="text-xl font-bold mb-4 text-accent">The Result:</h3>
-            <ul className="space-y-3 text-gray-300">
-              <li className="flex items-start">
-                <span className="text-red-400 mr-2">→</span>
-                <span>You reread the same paragraph three times</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-red-400 mr-2">→</span>
-                <span>Information slides off your brain</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-red-400 mr-2">→</span>
-                <span>Tasks feel like pushing through molasses</span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-red-400 mr-2">→</span>
-                <span>You wonder if you've lost your edge permanently</span>
-              </li>
-            </ul>
+          <div className="quote-block">
+            <p className="mb-3">"I was working in a startup for 3 years, burning out completely... cognitive decline I couldn't fix with just rest."</p>
+            <p className="text-xs text-text-secondary not-italic">Founder, 38</p>
+          </div>
+          <div className="quote-block">
+            <p className="mb-3">"My brain was stuck in stress response mode. Modafinil made it worse."</p>
+            <p className="text-xs text-text-secondary not-italic">AI researcher, 34</p>
+          </div>
+          <div className="quote-block">
+            <p className="mb-3">"Procrastination isn't laziness — it's cognitive friction. I know what needs to get done. My brain just won't start."</p>
+            <p className="text-xs text-text-secondary not-italic">Founder, 42</p>
           </div>
         </div>
-        
-        <div className="text-center bg-accent/10 border border-accent/30 p-8 rounded-lg">
-          <p className="text-xl font-semibold mb-2">Here's the truth:</p>
-          <p className="text-2xl text-accent font-bold">
-            Your brain isn't broken. It's in protection mode.
+
+        {/* Mechanism — AFTER emotional hook */}
+        <div className="border border-accent/20 rounded-lg p-8 mb-10 bg-tertiary">
+          <p className="text-sm text-accent uppercase tracking-widest font-bold mb-4">What's Actually Happening</p>
+          <p className="text-lg text-text-primary leading-relaxed mb-4">
+            When your body registers chronic stress — from overwork, poor sleep, inflammation,
+            or aging — neurons activate the{' '}
+            <span className="text-accent font-semibold">Integrated Stress Response (ISR)</span>.
           </p>
-          <p className="text-gray-300 mt-4">
-            And every stimulant or supplement you've tried is just pushing harder on the gas<br />while the emergency brake is still engaged.
+          <p className="text-lg text-text-secondary leading-relaxed mb-4">
+            ISR halts protein synthesis as a protective mechanism. In acute stress, this is correct behavior.
+            Under chronic modern conditions, <span className="text-text-primary font-semibold">it never turns off</span>.
+          </p>
+          <p className="text-lg text-text-secondary leading-relaxed">
+            The result: memory formation blocked. Cognitive throughput throttled.
+            Motivation pathways suppressed. Not because your brain is damaged —
+            because it's running a protection protocol that never got the "all clear" signal.
           </p>
         </div>
+
+        {/* Before/After — compact */}
+        <div className="grid md:grid-cols-2 gap-6 mb-10">
+          <div className="card">
+            <h3 className="text-sm font-bold uppercase tracking-widest text-danger mb-4">ISR Active (Your Current State)</h3>
+            <ul className="space-y-2 text-text-secondary text-sm">
+              <li>→ Protein synthesis suppressed in neurons</li>
+              <li>→ Long-term memory formation blocked</li>
+              <li>→ Information processing degraded</li>
+              <li>→ Task initiation requires enormous effort</li>
+              <li>→ Stimulants give diminishing returns</li>
+            </ul>
+          </div>
+          <div className="card border-accent/20">
+            <h3 className="text-sm font-bold uppercase tracking-widest text-accent mb-4">ISR Released (Target State)</h3>
+            <ul className="space-y-2 text-text-secondary text-sm">
+              <li>→ Protein synthesis resumes in neurons</li>
+              <li>→ Memory consolidation pathway restored</li>
+              <li>→ Information processing normalized</li>
+              <li>→ Task initiation feels natural again</li>
+              <li>→ No stimulant required</li>
+            </ul>
+          </div>
+        </div>
+
+        {/* The reframe */}
+        <div className="text-center bg-accent-muted border border-accent/20 p-8 rounded-sm">
+          <p className="text-xl font-bold text-accent mb-3">
+            Every stimulant you've tried was pushing harder on the gas
+            while the emergency brake was still engaged.
+          </p>
+          <p className="text-text-secondary">
+            ISRIB A15 doesn't push. It releases the brake.
+          </p>
+        </div>
+
       </div>
     </section>
   );
