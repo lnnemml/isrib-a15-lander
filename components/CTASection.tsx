@@ -96,11 +96,11 @@ export default function CTASection() {
         <div className="text-center mb-8">
           <div className="inline-block bg-accent/20 border border-accent px-6 py-2 rounded-full mb-4">
             <p className="text-accent font-semibold text-sm">
-              ⚡ Intro Offer: Limited Research Batch
+              Synthesized in-house · NMR verified · Ships within 48h
             </p>
           </div>
           <h2 className="section-heading">
-            Ready to Release the Brake?
+            Order ISRIB A15
           </h2>
           <p className="section-subheading">
             Start with ISRIB A15 — the optimized analog designed for human use.
@@ -379,7 +379,7 @@ export default function CTASection() {
             <span className="font-semibold">Important:</span> ISRIB A15 is a research compound, not FDA-approved. Intended for personal research use only.
           </p>
           <p className="text-sm text-gray-400">
-            Follow the protocol for 2 weeks. If you notice no cognitive improvement, contact us — we'll troubleshoot together.
+            Follow the protocol for 2 weeks. If you notice no difference, reach out — we'll troubleshoot dosing and timing together. Note: due to the nature of research compounds, we do not offer refunds after shipment.
           </p>
         </div>
       </div>
