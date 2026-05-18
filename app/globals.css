@@ -3,29 +3,33 @@
 @tailwind utilities;
 
 @layer base {
-  html {
-    scroll-behavior: smooth;
-  }
-  
-  body {
-    @apply bg-primary text-gray-100;
-  }
+  html { scroll-behavior: smooth; }
+  body { @apply bg-primary text-text-primary; }
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-accent hover:bg-accent-dark text-primary font-semibold px-8 py-4 rounded-lg transition-all duration-300 shadow-lg hover:shadow-accent/50 hover:scale-105;
+    @apply bg-accent hover:bg-accent-light text-primary font-bold px-8 py-4 rounded-md
+    transition-all duration-200 shadow-lg hover:shadow-accent/30 hover:scale-[1.02]
+    tracking-wide uppercase text-sm;
   }
-  
   .btn-secondary {
-    @apply border-2 border-accent text-accent hover:bg-accent hover:text-primary font-semibold px-8 py-4 rounded-lg transition-all duration-300;
+    @apply border border-accent/40 text-accent hover:border-accent hover:bg-accent/5
+    font-semibold px-8 py-4 rounded-md transition-all duration-200 tracking-wide uppercase text-sm;
   }
-  
   .section-heading {
-    @apply text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight;
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight tracking-tight;
   }
-  
   .section-subheading {
-    @apply text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed;
+    @apply text-lg md:text-xl text-text-secondary mb-8 leading-relaxed;
+  }
+  .card {
+    @apply bg-secondary border border-white/5 rounded-lg p-6;
+  }
+  .card-accent {
+    @apply bg-secondary border border-accent/20 rounded-lg p-6;
+  }
+  .quote-block {
+    @apply border-l-2 border-accent/50 pl-6 italic text-text-secondary leading-relaxed;
   }
 }
