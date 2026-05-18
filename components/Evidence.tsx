@@ -1,73 +1,65 @@
 export default function Evidence() {
   return (
-    <section id="evidence" className="py-20 px-4 bg-secondary/30">
-      <div className="max-w-5xl mx-auto">
+    <section id="evidence" className="py-24 px-4">
+      <div className="max-w-4xl mx-auto">
+        <p className="text-xs text-accent uppercase tracking-widest font-bold text-center mb-4">Purity & Synthesis</p>
         <h2 className="section-heading text-center">
-          The Science Is Undeniable
+          Not a Reseller. A Chemist.
         </h2>
-        
-        <p className="section-subheading text-center">
-          Published in top scientific journals. Validated by leading researchers.
+        <p className="section-subheading text-center max-w-2xl mx-auto">
+          Every other vendor selling ISRIB A15 is a B2B reagent supplier writing for lab procurement teams.
+          We synthesize in-house — and that changes everything about purity, consistency, and accountability.
         </p>
-        
-        <div className="grid md:grid-cols-3 gap-6 mb-12">
-          <div className="bg-primary p-6 rounded-lg text-center">
-            <div className="text-4xl font-bold text-accent mb-2">2013</div>
-            <p className="text-gray-300">Initial discovery at UCSF</p>
-          </div>
-          <div className="bg-primary p-6 rounded-lg text-center">
-            <div className="text-4xl font-bold text-accent mb-2">2017</div>
-            <p className="text-gray-300">TBI reversal study published</p>
-          </div>
-          <div className="bg-primary p-6 rounded-lg text-center">
-            <div className="text-4xl font-bold text-accent mb-2">2020</div>
-            <p className="text-gray-300">Aging reversal breakthrough</p>
-          </div>
-        </div>
-        
-        <div className="space-y-6 mb-12">
-          <div className="bg-secondary/50 p-6 rounded-lg border-l-4 border-accent">
-            <h3 className="text-xl font-bold mb-3">Study: Traumatic Brain Injury (2017)</h3>
-            <ul className="space-y-2 text-gray-300">
-              <li>• Brain-injured mice regained normal memory and learning</li>
-              <li>• Treatment effective even 4 months post-injury</li>
-              <li>• Synaptic connections physically regrew</li>
-              <li>• Benefits persisted weeks after treatment ended</li>
+
+        {/* Competitor comparison */}
+        <div className="grid md:grid-cols-2 gap-6 mb-16">
+          <div className="card border-danger/20">
+            <p className="text-xs text-danger uppercase tracking-wider font-bold mb-4">Other Vendors</p>
+            <ul className="space-y-3 text-text-secondary text-sm">
+              <li className="flex gap-2"><span className="text-danger flex-shrink-0">✗</span>Bulk white-label supply, unknown origin</li>
+              <li className="flex gap-2"><span className="text-danger flex-shrink-0">✗</span>No synthesis documentation</li>
+              <li className="flex gap-2"><span className="text-danger flex-shrink-0">✗</span>Sold as analytical standard, not for use</li>
+              <li className="flex gap-2"><span className="text-danger flex-shrink-0">✗</span>AMSBIO: $415 for 50mg powder</li>
+              <li className="flex gap-2"><span className="text-danger flex-shrink-0">✗</span>No dosing guidance, no protocol</li>
             </ul>
-            <p className="text-sm text-gray-400 mt-4">Source: Science, UCSF</p>
           </div>
-          
-          <div className="bg-secondary/50 p-6 rounded-lg border-l-4 border-accent">
-            <h3 className="text-xl font-bold mb-3">Study: Age-Related Decline (2020)</h3>
-            <ul className="space-y-2 text-gray-300">
-              <li>• Elderly mice treated for just 3 days</li>
-              <li>• Performed like young mice in cognitive tests weeks later</li>
-              <li>• Memory formation restored to youthful levels</li>
-              <li>• Lead researcher: "The aged brain isn't lost — it's trapped"</li>
-            </ul>
-            <p className="text-sm text-gray-400 mt-4">Source: eLife</p>
-          </div>
-          
-          <div className="bg-secondary/50 p-6 rounded-lg border-l-4 border-accent">
-            <h3 className="text-xl font-bold mb-3">Safety Profile</h3>
-            <ul className="space-y-2 text-gray-300">
-              <li>• No toxicity observed at effective doses</li>
-              <li>• No behavioral abnormalities</li>
-              <li>• No organ damage in animal studies</li>
-              <li>• Currently in human clinical trials (Calico/Google)</li>
+          <div className="card-accent">
+            <p className="text-xs text-accent uppercase tracking-wider font-bold mb-4">Our Synthesis</p>
+            <ul className="space-y-3 text-text-secondary text-sm">
+              <li className="flex gap-2"><span className="text-accent flex-shrink-0">✓</span>In-house synthesis by ex-Enamine pharmaceutical chemist</li>
+              <li className="flex gap-2"><span className="text-accent flex-shrink-0">✓</span>LC-MS + NMR verification every batch</li>
+              <li className="flex gap-2"><span className="text-accent flex-shrink-0">✓</span>98%+ HPLC purity, COA with every order</li>
+              <li className="flex gap-2"><span className="text-accent flex-shrink-0">✓</span>1g for $200 — ~20x better value per dose</li>
+              <li className="flex gap-2"><span className="text-accent flex-shrink-0">✓</span>Capsule form: no solvents, pre-dosed 20mg</li>
             </ul>
           </div>
         </div>
-        
-        <div className="bg-accent/10 border border-accent/30 p-8 rounded-lg text-center">
-          <h3 className="text-2xl font-bold mb-4">What This Means For You</h3>
-          <p className="text-lg text-gray-300 leading-relaxed">
-            Whether you're dealing with chronic stress, post-concussion fog, age-related slowdown, or just hitting a performance wall — the mechanism is the same: <span className="text-accent font-semibold">an overactive ISR blocking your brain's natural capacity</span>.
+
+        {/* Purity stats */}
+        <div className="grid grid-cols-3 gap-4 mb-16">
+          {[
+            { stat: '98.7%', label: 'Purity (HPLC)', sub: 'Batch-verified' },
+            { stat: '0', label: 'Fillers or excipients', sub: 'Pure compound only' },
+            { stat: '100%', label: 'In-house synthesis', sub: 'Not resold' },
+          ].map((item) => (
+            <div key={item.label} className="card text-center">
+              <div className="text-3xl md:text-4xl font-black text-accent mb-1">{item.stat}</div>
+              <p className="text-text-primary text-sm font-semibold mb-1">{item.label}</p>
+              <p className="text-text-secondary text-xs">{item.sub}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* COA promise */}
+        <div className="bg-accent-muted border border-accent/20 p-6 rounded-sm text-center">
+          <p className="text-text-primary font-semibold mb-2">
+            Certificate of Analysis (COA) included with every order
           </p>
-          <p className="text-lg text-gray-300 leading-relaxed mt-4">
-            ISRIB A15 releases that brake.
+          <p className="text-text-secondary text-sm">
+            Batch-specific purity data. You see exactly what you're getting before you take it.
           </p>
         </div>
+
       </div>
     </section>
   );

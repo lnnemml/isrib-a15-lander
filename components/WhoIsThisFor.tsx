@@ -1,85 +1,41 @@
 export default function WhoIsThisFor() {
   return (
-    <section className="py-20 px-4 bg-gradient-to-b from-primary to-secondary/30">
+    <section className="py-24 px-4">
       <div className="max-w-4xl mx-auto">
+        <p className="text-xs text-accent uppercase tracking-widest font-bold text-center mb-4">Who This Is For</p>
         <h2 className="section-heading text-center mb-4">
           This Is For You If...
         </h2>
-        
-        <p className="text-xl text-gray-300 text-center mb-12">
-          Recognize any of these cognitive warning signs?
+        <p className="section-subheading text-center">
+          You've tried the obvious things. They helped for a week, then plateaued.
         </p>
-        
-        <div className="grid md:grid-cols-2 gap-6 mb-12">
-          {/* Symptom 1 */}
-          <div className="bg-secondary/50 p-6 rounded-lg border-l-4 border-accent hover:bg-secondary transition-all">
-            <div className="flex items-start">
-              <div className="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-                <span className="text-2xl">🌫️</span>
-              </div>
-              <div>
-                <h3 className="text-lg font-bold mb-2 text-accent">Brain Fog That Won't Clear</h3>
-                <p className="text-gray-300">
-                  You wake up with mental fog that persists throughout the day. Coffee doesn't help. Rest doesn't help. Your thinking feels sluggish and unclear.
-                </p>
-              </div>
-            </div>
-          </div>
-          
-          {/* Symptom 2 */}
-          <div className="bg-secondary/50 p-6 rounded-lg border-l-4 border-accent hover:bg-secondary transition-all">
-            <div className="flex items-start">
-              <div className="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-                <span className="text-2xl">⏸️</span>
-              </div>
-              <div>
-                <h3 className="text-lg font-bold mb-2 text-accent">Massive Mental Resistance</h3>
-                <p className="text-gray-300">
-                  Starting tasks feels like pushing through mud. You know what needs to be done, but your brain won't engage. Procrastination becomes your default state.
-                </p>
+
+        <div className="grid md:grid-cols-2 gap-4 mb-12">
+          {[
+            { icon: '🌫️', title: 'Brain fog that rest doesn\'t fix', body: 'You wake up already foggy. Coffee helps for 90 minutes. Then you\'re back to struggling through simple decisions.' },
+            { icon: '⏸️', title: 'Procrastination as your default', body: 'You open the file, then close it. Open it again. You\'re not avoiding work — your brain is refusing to engage.' },
+            { icon: '📉', title: 'Stimulants with diminishing returns', body: 'Modafinil worked great for 6 months. Now it gives you anxiety and 2 hours of clarity followed by a worse crash.' },
+            { icon: '🔁', title: 'Memory that slides off', body: 'You read a paragraph. By the end of the page it\'s gone. You used to hold architecture in your head for hours.' },
+          ].map((item) => (
+            <div key={item.title} className="card-accent hover:border-accent/40 transition-colors">
+              <div className="flex items-start gap-4">
+                <span className="text-2xl mt-1 flex-shrink-0">{item.icon}</span>
+                <div>
+                  <h3 className="font-bold text-text-primary mb-2">{item.title}</h3>
+                  <p className="text-text-secondary text-sm leading-relaxed">{item.body}</p>
+                </div>
               </div>
             </div>
-          </div>
-          
-          {/* Symptom 3 */}
-          <div className="bg-secondary/50 p-6 rounded-lg border-l-4 border-accent hover:bg-secondary transition-all">
-            <div className="flex items-start">
-              <div className="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-                <span className="text-2xl">🔥</span>
-              </div>
-              <div>
-                <h3 className="text-lg font-bold mb-2 text-accent">Post-Stress Mental Crash</h3>
-                <p className="text-gray-300">
-                  After deadlines, intense work, or emotional stress, your brain "crashes." What used to take an hour now takes a full day. Your mind feels fried.
-                </p>
-              </div>
-            </div>
-          </div>
-          
-          {/* Symptom 4 */}
-          <div className="bg-secondary/50 p-6 rounded-lg border-l-4 border-accent hover:bg-secondary transition-all">
-            <div className="flex items-start">
-              <div className="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center mr-4 flex-shrink-0">
-                <span className="text-2xl">🧠</span>
-              </div>
-              <div>
-                <h3 className="text-lg font-bold mb-2 text-accent">Memory & Focus Deterioration</h3>
-                <p className="text-gray-300">
-                  Your memory isn't what it used to be. You read the same paragraph three times. Focus lasts 5-15 minutes max before your mind wanders or shuts down.
-                </p>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
-        
-        {/* The Realization */}
-        <div className="bg-accent/10 border-2 border-accent/30 p-8 rounded-lg text-center">
-          <p className="text-xl font-semibold mb-4">If 2 or more of these describe you...</p>
-          <p className="text-2xl text-accent font-bold mb-4">
-            Your brain isn't lazy. It's locked.
+
+        <div className="bg-accent-muted border border-accent/20 p-8 rounded-sm text-center">
+          <p className="text-lg font-bold text-accent mb-2">If 2+ of these describe you:</p>
+          <p className="text-xl text-text-primary font-semibold mb-3">
+            The ISR pathway is likely your bottleneck — not your discipline, not your sleep hygiene, not your stack.
           </p>
-          <p className="text-lg text-gray-300">
-            The Integrated Stress Response (ISR) is blocking your cognitive capacity — and ISRIB A15 is specifically designed to release that block.
+          <p className="text-text-secondary text-sm">
+            ISRIB A15 is the only compound that targets this specific pathway at the cellular level.
           </p>
         </div>
       </div>
