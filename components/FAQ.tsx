@@ -32,36 +32,36 @@ export default function FAQ() {
   const faqs = [
     {
       question: "Is ISRIB A15 safe?",
-      answer: "In animal studies, ISRIB showed no toxicity at effective doses. UCSF researchers called it 'totally benign.' However, it's an experimental compound — long-term human data is still emerging. We recommend starting with the lowest effective dose and monitoring your response."
+      answer: "In animal studies, ISRIB showed no toxicity at effective doses across multiple research groups. UCSF's Dr. Peter Walter stated: 'We have never seen any relevant side effects. None. It is totally benign.' A15 has a different pharmacokinetic profile from original ISRIB — improved oral bioavailability, shorter systemic exposure per dose. Long-term human data is still emerging, as with all research compounds. We recommend the lowest effective dose and standard cycling protocols."
     },
     {
-      question: "Will I feel anything immediately?",
-      answer: "Most users notice subtle changes within 3-5 days — easier task initiation, better retention, less mental fog. By day 7, effects become undeniable. This is restoration, not stimulation, so don't expect an instant buzz like caffeine."
+      question: "Does blocking the ISR increase cancer risk?",
+      answer: "This question comes up in biohacker forums and deserves a direct answer. The concern conflates chronic therapeutic dosing (which is not what we're discussing) with short nootropic protocols. ISRIB A15 at nootropic doses (10–20mg, cycling 5-on/2-off) produces transient ISR modulation — not sustained suppression of stress response pathways. No oncogenic signal has been observed in animal studies at effective doses. The cancer risk hypothesis is based on theoretical mechanism, not experimental evidence. If this is a concern for you personally, consult your physician before use."
     },
     {
-      question: "How does it compare to Modafinil or Adderall?",
-      answer: "Unlike stimulants that force wakefulness and focus, ISRIB releases a biological brake—restoring your brain's natural capacity. No jitters, no crash, no dependence. Modafinil pushes; ISRIB unlocks. Many users find them complementary rather than competing."
+      question: "How is this different from modafinil or Adderall?",
+      answer: "Stimulants (modafinil, amphetamines, even caffeine) work by upregulating wakefulness neurotransmitters — dopamine, orexin, norepinephrine. They push harder on an already-stressed system. ISRIB operates on protein synthesis pathways entirely upstream of neurotransmitters. It releases a cellular block rather than forcing stimulation. No dopaminergic mechanism means no tolerance, no dependence pathway, no crash. Many users describe it as the difference between pushing through fog and the fog simply lifting."
     },
     {
-      question: "What if I've tried everything and nothing works?",
-      answer: "ISRIB works on a fundamentally different mechanism than racetams, adaptogens, or stimulants. It targets the Integrated Stress Response — a pathway most nootropics don't touch. If your cognition is blocked by chronic ISR activation, ISRIB may succeed where others failed."
+      question: "What if I've tried modafinil, racetams, peptides — and nothing worked?",
+      answer: "This is the most common profile of ISRIB A15 users. If you're Stage 3–4 sophisticated (tried most things, getting diminishing returns), it's likely because everything you've tried works on neurotransmitter pathways — and that's not where your bottleneck is. If chronic ISR activation is the root cause, no amount of dopaminergic or cholinergic modulation will fix it. ISRIB A15 is the only compound currently available that targets eIF2B directly. That's why it works when other things don't."
     },
     {
       question: "How do I take it?",
-      answer: "Start with 10mg in the morning (before 2pm), fasted or with light food. Use a milligram scale for accuracy. Most users settle at 10-15mg per dose. Cycle 5 days on / 2 days off, or take for 2 weeks then 1 week off. Full dosing guide included with purchase."
+      answer: "Capsule form: take one 20mg capsule in the morning, before 2pm, with or without food. Most users find 20mg sufficient; some sensitive individuals start at 10mg (powder form). Protocol: 5 days on, 2 days off. Or 2 weeks on, 1 week off. Full dosing guide and cycling strategy included with every order. No solvents, no scale required for capsule form."
     },
     {
-      question: "Will it make me anxious or affect my sleep?",
-      answer: "No. ISRIB is not a stimulant — it has no dopaminergic or adrenergic activity. Many users report better sleep as stress signaling normalizes. Take before 2pm to ensure it doesn't interfere with your circadian rhythm."
+      question: "Will I feel it immediately?",
+      answer: "Not like a stimulant. ISRIB works by restoring protein synthesis — this takes 24-72 hours to produce measurable effects. Most users notice subtle changes by day 3 (easier task initiation, information sticking better). By day 5-7, the effect becomes unmistakable. If you feel nothing after 2 weeks, contact us — we'll troubleshoot dosing and timing."
     },
     {
-      question: "Is this legal?",
-      answer: "Yes. ISRIB A15 is sold as a research compound. It's not FDA-approved and not intended to diagnose, treat, cure, or prevent disease. Purchase and use is for personal research only."
+      question: "Is it legal?",
+      answer: "Yes. ISRIB A15 is sold as a research compound for personal investigation. It is not a scheduled substance in any major jurisdiction. It is not FDA-approved and not intended to diagnose, treat, cure, or prevent disease. Purchasing is legal; use is for personal research only."
     },
     {
-      question: "What if it doesn't work for me?",
-      answer: "Most responders (70-80%) notice clear cognitive shifts within a week when sleep and nutrition are adequate. If you're a non-responder, contact us—we'll troubleshoot dosing, timing, and underlying factors together. ISR may not be your bottleneck, but we'll figure it out."
-    }
+      question: "What about purity — how do I know it's not contaminated?",
+      answer: "This is the right question to ask of any research compound vendor. Our answer: in-house synthesis by a pharmaceutical chemists, NMR verification on every batch, 98%+ HPLC purity, Certificate of Analysis included with every order. We don't buy bulk powder and rebrand it. We synthesize, purify, and verify. You can request the COA before purchasing."
+    },
   ];
   
   return (
