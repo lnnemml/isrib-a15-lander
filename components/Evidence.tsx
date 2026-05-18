@@ -26,8 +26,8 @@ export default function Evidence() {
           <div className="card-accent">
             <p className="text-xs text-accent uppercase tracking-wider font-bold mb-4">Our Synthesis</p>
             <ul className="space-y-3 text-text-secondary text-sm">
-              <li className="flex gap-2"><span className="text-accent flex-shrink-0">✓</span>In-house synthesis by ex-Enamine pharmaceutical chemist</li>
-              <li className="flex gap-2"><span className="text-accent flex-shrink-0">✓</span>LC-MS + NMR verification every batch</li>
+              <li className="flex gap-2"><span className="text-accent flex-shrink-0">✓</span>In-house synthesis by pharmaceutical chemists</li>
+              <li className="flex gap-2"><span className="text-accent flex-shrink-0">✓</span>NMR verification every batch</li>
               <li className="flex gap-2"><span className="text-accent flex-shrink-0">✓</span>98%+ HPLC purity, COA with every order</li>
               <li className="flex gap-2"><span className="text-accent flex-shrink-0">✓</span>1g for $200 — ~20x better value per dose</li>
               <li className="flex gap-2"><span className="text-accent flex-shrink-0">✓</span>Capsule form: no solvents, pre-dosed 20mg</li>
