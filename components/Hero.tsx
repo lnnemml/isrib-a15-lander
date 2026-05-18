@@ -1,8 +1,5 @@
 'use client';
-
 import { trackButtonClick } from '@/lib/analytics';
-
-
 
 interface HeroProps {
   onOpenEmail: () => void;
@@ -12,88 +9,95 @@ export default function Hero({ onOpenEmail }: HeroProps) {
   const handleCTAClick = (type: 'primary' | 'secondary') => {
     if (type === 'primary') {
       const ctaSection = document.getElementById('cta-section');
-      if (ctaSection) {
-        ctaSection.scrollIntoView({ behavior: 'smooth' });
-      }
+      if (ctaSection) ctaSection.scrollIntoView({ behavior: 'smooth' });
     } else {
-      trackButtonClick('Get the Full Story', 'hero');
+      trackButtonClick('Get the Research', 'hero');
       onOpenEmail();
     }
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-b from-secondary via-primary to-primary opacity-50"></div>
-      
-      {/* Content */}
-      <div className="relative z-10 max-w-4xl mx-auto text-center">
-        <div className="mb-6">
-          <span className="inline-block px-4 py-2 bg-accent/10 text-accent rounded-full text-sm font-semibold border border-accent/30">
-            UCSF-Discovered • Biohacker-Proven
+    <section className="relative min-h-screen flex items-center justify-center px-4 py-24 overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-tertiary via-primary to-primary"></div>
+
+      <div className="relative z-10 max-w-3xl mx-auto text-center">
+
+        {/* Credibility tag */}
+        <div className="mb-8">
+          <span className="inline-block px-4 py-2 bg-accent-muted text-accent rounded-sm text-xs font-bold border border-accent/20 tracking-widest uppercase">
+            UCSF Research · In-House Synthesis · NMR Verified
           </span>
         </div>
-        
-        <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+
+        {/* Primary headline */}
+        <h1 className="text-5xl md:text-7xl font-black mb-6 leading-[1.05] tracking-tight">
           Your Brain Isn't Broken.
           <br />
           <span className="text-accent">It's Stuck.</span>
         </h1>
-        
-        <p className="text-xl md:text-2xl text-gray-300 mb-4 leading-relaxed max-w-3xl mx-auto">
-          ISRIB A15 releases the hidden brake blocking your memory, focus, and mental clarity, restoring the cognitive performance you thought you lost.
+
+        {/* Subheadline — VOC language */}
+        <p className="text-xl md:text-2xl text-text-secondary mb-4 leading-relaxed max-w-2xl mx-auto">
+          Chronic stress activates a cellular brake that blocks protein synthesis in neurons —
+          cutting off memory formation, focus, and clarity. Even after rest.
         </p>
-        
-        <p className="text-lg md:text-xl text-accent font-semibold mb-6 max-w-2xl mx-auto">
-          Unlock memory, focus, and clarity within days.
+
+        <p className="text-lg text-text-secondary mb-10 max-w-xl mx-auto">
+          <span className="text-accent font-semibold">ISRIB A15</span> is the compound UCSF researchers
+          used to reverse this — in aged brains, injured brains, and stressed brains.
         </p>
-        
-        <div className="inline-block bg-accent/10 border border-accent/30 px-6 py-3 rounded-lg mb-8">
-          <p className="text-gray-300 text-sm md:text-base">
-            <span className="font-semibold text-accent">It's not a stimulant.</span> It's restoration.
+
+        {/* Anti-stimulant positioning */}
+        <div className="inline-block bg-accent-muted border border-accent/20 px-6 py-3 rounded-sm mb-10">
+          <p className="text-sm font-medium">
+            <span className="text-accent">Not a stimulant.</span>
+            <span className="text-text-secondary"> No buzz. No crash. Restoration at the cellular level.</span>
           </p>
         </div>
-        
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+
+        {/* CTAs */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6">
           <a
             href="#cta-section"
-            onClick={(e) => {
-              e.preventDefault();
-              handleCTAClick('primary');
-            }}
+            onClick={(e) => { e.preventDefault(); handleCTAClick('primary'); }}
             className="btn-primary w-full sm:w-auto"
           >
-            Try ISRIB A15
+            Order ISRIB A15
           </a>
-          <button 
-            onClick={() => {
-              handleCTAClick('secondary');
-              onOpenEmail();
-            }}
+          <button
+            onClick={() => handleCTAClick('secondary')}
             className="btn-secondary w-full sm:w-auto"
           >
-            Get the Full Story
+            Get the Research First
           </button>
         </div>
-        
-        <p className="text-sm text-gray-400 mb-12">
-          Purity verified • Discreet shipping
+
+        <p className="text-xs text-text-secondary mb-16 tracking-wide">
+          98%+ purity · LC-MS/NMR verified · Ships within 48h
         </p>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 text-left">
-          <div className="bg-secondary/50 p-6 rounded-lg border border-accent/20">
-            <div className="text-accent font-bold text-lg mb-2">Memory Restored</div>
-            <p className="text-gray-400 text-sm">Old mice performed like young ones after just 3 days</p>
+
+        {/* Three proof points */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 text-left">
+          <div className="card-accent">
+            <div className="text-accent font-bold text-sm uppercase tracking-wider mb-2">Memory Restored</div>
+            <p className="text-text-secondary text-sm leading-relaxed">
+              Aged mice (65+ human equivalent) performed like young mice after 3 days of treatment
+            </p>
           </div>
-          <div className="bg-secondary/50 p-6 rounded-lg border border-accent/20">
-            <div className="text-accent font-bold text-lg mb-2">TBI Reversed</div>
-            <p className="text-gray-400 text-sm">Brain-injured mice regained normal cognitive function</p>
+          <div className="card-accent">
+            <div className="text-accent font-bold text-sm uppercase tracking-wider mb-2">TBI Reversed</div>
+            <p className="text-text-secondary text-sm leading-relaxed">
+              Brain-injured mice regained normal cognitive function — even when treated months post-injury
+            </p>
           </div>
-          <div className="bg-secondary/50 p-6 rounded-lg border border-accent/20">
-            <div className="text-accent font-bold text-lg mb-2">Zero Toxicity</div>
-            <p className="text-gray-400 text-sm">"Totally benign" - UCSF Lead Researcher</p>
+          <div className="card-accent">
+            <div className="text-accent font-bold text-sm uppercase tracking-wider mb-2">"Totally Benign"</div>
+            <p className="text-text-secondary text-sm leading-relaxed">
+              "We have never seen any relevant side effects. None." — Dr. Peter Walter, UCSF
+            </p>
           </div>
         </div>
+
       </div>
     </section>
   );
