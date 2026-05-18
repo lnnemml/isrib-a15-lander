@@ -78,7 +78,7 @@ export default function PurityGuarantee() {
                 </div>
                 <h4 className="font-bold mb-2 text-accent">3. QC Testing</h4>
                 <p className="text-sm text-gray-300">
-                  LC-MS/HPLC analysis confirms purity, identity, and absence of contaminants
+                  NMR/HPLC analysis confirms purity, identity, and absence of contaminants
                 </p>
               </div>
               {/* Arrow */}
