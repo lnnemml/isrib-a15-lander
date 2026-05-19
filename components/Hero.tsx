@@ -73,7 +73,7 @@ export default function Hero({ onOpenEmail }: HeroProps) {
         </div>
 
         <p className="text-xs text-text-secondary mb-16 tracking-wide">
-          98%+ purity · LC-MS/NMR verified · Ships within 48h
+          98%+ purity · NMR verified · Ships within 48h
         </p>
 
         {/* Three proof points */}
