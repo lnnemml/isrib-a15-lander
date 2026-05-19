@@ -34,18 +34,18 @@ export default function Problem() {
         </div>
 
         {/* Mechanism — AFTER emotional hook */}
-        <div className="border border-accent/20 rounded-lg p-8 mb-10 bg-tertiary">
+        <div className="border border-accent/20 rounded-lg p-8 mb-10 bg-tertiary space-y-6">
           <p className="text-sm text-accent uppercase tracking-widest font-bold mb-4">What's Actually Happening</p>
-          <p className="text-lg text-text-primary leading-relaxed mb-4">
+          <p className="text-base text-text-secondary leading-relaxed">
             When your body registers chronic stress — from overwork, poor sleep, inflammation,
             or aging — neurons activate the{' '}
             <span className="text-accent font-semibold">Integrated Stress Response (ISR)</span>.
           </p>
-          <p className="text-lg text-text-secondary leading-relaxed mb-4">
+          <p className="text-base text-text-secondary leading-relaxed">
             ISR halts protein synthesis as a protective mechanism. In acute stress, this is correct behavior.
             Under chronic modern conditions, <span className="text-text-primary font-semibold">it never turns off</span>.
           </p>
-          <p className="text-lg text-text-secondary leading-relaxed">
+          <p className="text-base text-text-secondary leading-relaxed">
             The result: memory formation blocked. Cognitive throughput throttled.
             Motivation pathways suppressed. Not because your brain is damaged —
             because it's running a protection protocol that never got the "all clear" signal.

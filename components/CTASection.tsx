@@ -140,7 +140,7 @@ export default function CTASection() {
         {selectedFormat === 'powder' && (
           <div className="grid md:grid-cols-2 gap-6 mb-12">
             {/* 500mg Option */}
-            <div className="bg-secondary border-2 border-accent/30 rounded-lg p-8 hover:border-accent transition-all">
+            <div className="bg-secondary border-2 border-accent/30 rounded-lg p-8 hover:border-accent transition-all opacity-90">
               <div className="text-center mb-6">
                 <h3 className="text-2xl font-bold mb-2">Start Here</h3>
                 <div className="mb-2">
@@ -185,9 +185,9 @@ export default function CTASection() {
             </div>
             
             {/* 1g Option */}
-            <div className="bg-secondary border-2 border-accent rounded-lg p-8 relative hover:scale-105 transition-all">
+            <div className="bg-secondary border-2 border-accent rounded-lg p-8 relative hover:scale-105 transition-all shadow-lg shadow-accent/10">
               <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                <span className="bg-accent text-primary px-4 py-1 rounded-full text-sm font-bold">
+                <span className="bg-accent text-primary px-5 py-1.5 rounded-full text-sm font-black tracking-wide uppercase">
                   BEST VALUE
                 </span>
               </div>
@@ -241,7 +241,7 @@ export default function CTASection() {
         {selectedFormat === 'capsules' && (
           <div className="grid md:grid-cols-2 gap-6 mb-12">
             {/* 25 Capsules Option */}
-            <div className="bg-secondary border-2 border-accent/30 rounded-lg p-8 hover:border-accent transition-all">
+            <div className="bg-secondary border-2 border-accent/20 rounded-lg p-8 hover:border-accent transition-all opacity-90">
               <div className="text-center mb-6">
                 <h3 className="text-2xl font-bold mb-2">Starter Pack</h3>
                 <div className="mb-2">
@@ -286,9 +286,9 @@ export default function CTASection() {
             </div>
             
             {/* 50 Capsules Option */}
-            <div className="bg-secondary border-2 border-accent rounded-lg p-8 relative hover:scale-105 transition-all">
+            <div className="bg-secondary border-2 border-accent rounded-lg p-8 relative hover:scale-105 transition-all shadow-lg shadow-accent/10">
               <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                <span className="bg-accent text-primary px-4 py-1 rounded-full text-sm font-bold">
+                <span className="bg-accent text-primary px-5 py-1.5 rounded-full text-sm font-black tracking-wide uppercase">
                   MOST POPULAR
                 </span>
               </div>

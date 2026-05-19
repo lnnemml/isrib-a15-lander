@@ -37,14 +37,14 @@ export default function Hero({ onOpenEmail }: HeroProps) {
         </h1>
 
         {/* Subheadline — VOC language */}
-        <p className="text-xl md:text-2xl text-text-secondary mb-4 leading-relaxed max-w-2xl mx-auto">
-          Chronic stress activates a cellular brake that blocks protein synthesis in neurons —
-          cutting off memory formation, focus, and clarity. Even after rest.
+        <p className="text-lg md:text-xl text-text-secondary mb-4 leading-relaxed max-w-2xl mx-auto">
+          Chronic stress locks a cellular brake that blocks memory formation,
+          focus, and clarity — even after rest.
         </p>
 
-        <p className="text-lg text-text-secondary mb-10 max-w-xl mx-auto">
-          <span className="text-accent font-semibold">ISRIB A15</span> is the compound UCSF researchers
-          used to reverse this — in aged brains, injured brains, and stressed brains.
+        <p className="text-base text-text-secondary mb-10 max-w-xl mx-auto">
+          <span className="text-accent font-semibold">ISRIB A15</span> is the compound
+          UCSF used to reverse this — in aged, injured, and chronically stressed brains.
         </p>
 
         {/* Anti-stimulant positioning */}
