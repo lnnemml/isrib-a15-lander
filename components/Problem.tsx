@@ -54,24 +54,42 @@ export default function Problem() {
 
         {/* Before/After — compact */}
         <div className="grid md:grid-cols-2 gap-6 mb-10">
-          <div className="card">
-            <h3 className="text-sm font-bold uppercase tracking-widest text-danger mb-4">ISR Active (Your Current State)</h3>
-            <ul className="space-y-2 text-text-secondary text-sm">
-              <li>→ Protein synthesis suppressed in neurons</li>
-              <li>→ Long-term memory formation blocked</li>
-              <li>→ Information processing degraded</li>
-              <li>→ Task initiation requires enormous effort</li>
-              <li>→ Stimulants give diminishing returns</li>
+          <div className="border border-danger/30 rounded-lg p-8 bg-tertiary">
+            <h3 className="text-xs font-black uppercase tracking-widest text-danger mb-6">
+              ISR Active — Your Current State
+            </h3>
+            <ul className="space-y-3">
+              {[
+                'Protein synthesis suppressed in neurons',
+                'Long-term memory formation blocked',
+                'Information processing degraded',
+                'Task initiation requires enormous effort',
+                'Stimulants give diminishing returns',
+              ].map((item) => (
+                <li key={item} className="flex gap-3 text-sm text-text-primary">
+                  <span className="text-danger flex-shrink-0 mt-0.5">→</span>
+                  {item}
+                </li>
+              ))}
             </ul>
           </div>
-          <div className="card border-accent/20">
-            <h3 className="text-sm font-bold uppercase tracking-widest text-accent mb-4">ISR Released (Target State)</h3>
-            <ul className="space-y-2 text-text-secondary text-sm">
-              <li>→ Protein synthesis resumes in neurons</li>
-              <li>→ Memory consolidation pathway restored</li>
-              <li>→ Information processing normalized</li>
-              <li>→ Task initiation feels natural again</li>
-              <li>→ No stimulant required</li>
+          <div className="border border-accent/30 rounded-lg p-8 bg-tertiary">
+            <h3 className="text-xs font-black uppercase tracking-widest text-accent mb-6">
+              ISR Released — Target State
+            </h3>
+            <ul className="space-y-3">
+              {[
+                'Protein synthesis resumes in neurons',
+                'Memory consolidation pathway restored',
+                'Information processing normalized',
+                'Task initiation feels natural again',
+                'No stimulant required',
+              ].map((item) => (
+                <li key={item} className="flex gap-3 text-sm text-text-primary">
+                  <span className="text-accent flex-shrink-0 mt-0.5">→</span>
+                  {item}
+                </li>
+              ))}
             </ul>
           </div>
         </div>
