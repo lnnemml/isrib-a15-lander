@@ -78,22 +78,31 @@ export default function Hero({ onOpenEmail }: HeroProps) {
 
         {/* Three proof points */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 text-left">
-          <div className="card-accent">
-            <div className="text-accent font-bold text-sm uppercase tracking-wider mb-2">Memory Restored</div>
-            <p className="text-text-secondary text-sm leading-relaxed">
-              Aged mice (65+ human equivalent) performed like young mice after 3 days of treatment
+          <div className="bg-tertiary border border-accent/30 rounded-lg p-6">
+            <div className="text-accent font-black text-xs uppercase tracking-widest mb-3">
+              Memory Restored
+            </div>
+            <p className="text-text-primary text-sm leading-relaxed">
+              Aged mice (65+ human equivalent) performed like young mice after 3 days.
+              Improvements lasted weeks after dosing stopped.
             </p>
           </div>
-          <div className="card-accent">
-            <div className="text-accent font-bold text-sm uppercase tracking-wider mb-2">TBI Reversed</div>
-            <p className="text-text-secondary text-sm leading-relaxed">
-              Brain-injured mice regained normal cognitive function — even when treated months post-injury
+          <div className="bg-tertiary border border-accent/30 rounded-lg p-6">
+            <div className="text-accent font-black text-xs uppercase tracking-widest mb-3">
+              TBI Reversed
+            </div>
+            <p className="text-text-primary text-sm leading-relaxed">
+              Brain-injured mice regained normal cognitive function — even when treated
+              months after severe injury.
             </p>
           </div>
-          <div className="card-accent">
-            <div className="text-accent font-bold text-sm uppercase tracking-wider mb-2">"Totally Benign"</div>
-            <p className="text-text-secondary text-sm leading-relaxed">
-              "We have never seen any relevant side effects. None." — Dr. Peter Walter, UCSF
+          <div className="bg-tertiary border border-accent/30 rounded-lg p-6">
+            <div className="text-accent font-black text-xs uppercase tracking-widest mb-3">
+              "Totally Benign"
+            </div>
+            <p className="text-text-primary text-sm leading-relaxed">
+              "We have never seen any relevant side effects. None." — Dr. Peter Walter, UCSF.
+              Currently in human trials at Calico (Google/Alphabet).
             </p>
           </div>
         </div>

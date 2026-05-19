@@ -19,23 +19,18 @@ export default function Problem() {
         </div>
 
         {/* VOC quotes — positioned BEFORE mechanism */}
-        <div className="grid md:grid-cols-2 gap-4 mb-16">
-          <div className="quote-block">
-            <p className="mb-3">"My ADHD meds stopped working. Turns out my brain had a 'brake' on."</p>
-            <p className="text-xs text-text-secondary not-italic">Software engineer, 31</p>
-          </div>
-          <div className="quote-block">
-            <p className="mb-3">"I was working in a startup for 3 years, burning out completely... cognitive decline I couldn't fix with just rest."</p>
-            <p className="text-xs text-text-secondary not-italic">Founder, 38</p>
-          </div>
-          <div className="quote-block">
-            <p className="mb-3">"My brain was stuck in stress response mode. Modafinil made it worse."</p>
-            <p className="text-xs text-text-secondary not-italic">AI researcher, 34</p>
-          </div>
-          <div className="quote-block">
-            <p className="mb-3">"Procrastination isn't laziness — it's cognitive friction. I know what needs to get done. My brain just won't start."</p>
-            <p className="text-xs text-text-secondary not-italic">Founder, 42</p>
-          </div>
+        <div className="grid md:grid-cols-2 gap-6 mb-16">
+          {[
+            { quote: '"My ADHD meds stopped working. Turns out my brain had a \'brake\' on."', role: 'Software engineer, 31' },
+            { quote: '"I was working in a startup for 3 years, burning out completely... cognitive decline I couldn\'t fix with just rest."', role: 'Founder, 38' },
+            { quote: '"My brain was stuck in stress response mode. Modafinil made it worse."', role: 'AI researcher, 34' },
+            { quote: '"Procrastination isn\'t laziness — it\'s cognitive friction. I know what needs to get done. My brain just won\'t start."', role: 'Founder, 42' },
+          ].map((item) => (
+            <div key={item.role} className="border-l-2 border-accent pl-6 py-2">
+              <p className="italic text-text-primary leading-relaxed mb-3 text-base">{item.quote}</p>
+              <p className="text-xs text-text-secondary uppercase tracking-wider font-bold">{item.role}</p>
+            </div>
+          ))}
         </div>
 
         {/* Mechanism — AFTER emotional hook */}

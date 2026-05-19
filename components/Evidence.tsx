@@ -1,14 +1,17 @@
 export default function Evidence() {
   return (
-    <section id="evidence" className="py-24 px-4">
+    <section id="evidence" className="py-24 px-4 bg-tertiary">
       <div className="max-w-4xl mx-auto">
-        <p className="text-xs text-accent uppercase tracking-widest font-bold text-center mb-4">Purity & Synthesis</p>
+        <p className="text-xs text-accent uppercase tracking-widest font-bold text-center mb-4">Why Source Matters</p>
         <h2 className="section-heading text-center">
           Not a Reseller. A Chemist.
         </h2>
         <p className="section-subheading text-center max-w-2xl mx-auto">
-          Every other vendor selling ISRIB A15 is a B2B reagent supplier writing for lab procurement teams.
-          We synthesize in-house — and that changes everything about purity, consistency, and accountability.
+          Every other vendor selling ISRIB A15 is a B2B reagent supplier.
+          They buy bulk powder from unknown sources, rebrand it, and write spec sheets
+          for lab procurement teams. No one checks the actual purity.
+          We synthesize in-house. Every batch is NMR-verified before it ships.
+          That's the only way to know what's actually in the compound you're taking.
         </p>
 
         {/* Competitor comparison */}
