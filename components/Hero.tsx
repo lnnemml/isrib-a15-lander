@@ -78,7 +78,7 @@ export default function Hero({ onOpenEmail }: HeroProps) {
 
         {/* Three proof points */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 text-left">
-          <div className="bg-tertiary border border-accent/30 rounded-lg p-6">
+          <div className="bg-tertiary border border-accent/50 rounded-lg p-6">
             <div className="text-accent font-black text-xs uppercase tracking-widest mb-3">
               Memory Restored
             </div>
@@ -87,7 +87,7 @@ export default function Hero({ onOpenEmail }: HeroProps) {
               Improvements lasted weeks after dosing stopped.
             </p>
           </div>
-          <div className="bg-tertiary border border-accent/30 rounded-lg p-6">
+          <div className="bg-tertiary border border-accent/50 rounded-lg p-6">
             <div className="text-accent font-black text-xs uppercase tracking-widest mb-3">
               TBI Reversed
             </div>
@@ -96,7 +96,7 @@ export default function Hero({ onOpenEmail }: HeroProps) {
               months after severe injury.
             </p>
           </div>
-          <div className="bg-tertiary border border-accent/30 rounded-lg p-6">
+          <div className="bg-tertiary border border-accent/50 rounded-lg p-6">
             <div className="text-accent font-black text-xs uppercase tracking-widest mb-3">
               "Totally Benign"
             </div>

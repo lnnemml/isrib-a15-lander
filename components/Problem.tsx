@@ -26,7 +26,7 @@ export default function Problem() {
             { quote: '"My brain was stuck in stress response mode. Modafinil made it worse."', role: 'AI researcher, 34' },
             { quote: '"Procrastination isn\'t laziness — it\'s cognitive friction. I know what needs to get done. My brain just won\'t start."', role: 'Founder, 42' },
           ].map((item) => (
-            <div key={item.role} className="border-l-2 border-accent pl-6 py-2">
+            <div key={item.role} className="border-l-4 border-accent bg-tertiary rounded-r-lg px-6 py-4">
               <p className="italic text-text-primary leading-relaxed mb-3 text-base">{item.quote}</p>
               <p className="text-xs text-text-secondary uppercase tracking-wider font-bold">{item.role}</p>
             </div>
