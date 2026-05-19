@@ -18,28 +18,28 @@ export default function Experience() {
         <div className="grid md:grid-cols-2 gap-6 mb-16">
           {[
             {
+              role: 'PhD Student, 28',
+              context: 'Dissertation stress, 6 months of brain fog',
+              quote: '"Like defragmenting a cluttered hard drive. While reading complex papers, I could remember expressions and context after just 1-2 days. That never happened before."',
+              result: 'Days 1–2: Retention dramatically improved',
+            },
+            {
               role: 'Software Engineer, 34',
               context: 'Chronic burnout after 18 months of 60h weeks',
               quote: '"By day 5, logic clicked on the first pass. I could hold the entire architecture in my head again. Not hyper like on modafinil — just present."',
               result: 'Day 5: Full working memory restored',
             },
             {
-              role: 'PhD Student, 28',
-              context: 'Dissertation stress, 6 months of brain fog',
-              quote: '"Like defragmenting a cluttered hard drive. While reading complex papers, I could remember expressions and context after just 1-2 days. That never happened before."',
-              result: 'Days 1-2: Retention dramatically improved',
+              role: 'Marketing Director, 29',
+              context: 'Post-concussion fog, 8 months after injury',
+              quote: '"Doctors said this is as good as it gets. Week 2, the fog lifted like a window cracked open. I tracked conversations again. Words came back."',
+              result: 'Week 2: Normal cognitive function returned',
             },
             {
               role: 'Founder, 42',
               context: 'Age-related cognitive decline, "accepted it"',
               quote: '"I told myself this was just age. By week 3, recall was different — names, details, context on demand. My team noticed before I mentioned anything."',
               result: 'Week 3: Cognitive baseline of a decade prior',
-            },
-            {
-              role: 'Marketing Director, 29',
-              context: 'Post-concussion fog, 8 months after injury',
-              quote: '"Doctors said this is as good as it gets. Week 2, the fog lifted like a window cracked open. I tracked conversations again. Words came back."',
-              result: 'Week 2: Normal cognitive function returned',
             },
           ].map((t) => (
             <div key={t.role} className="card-accent flex flex-col justify-between">
