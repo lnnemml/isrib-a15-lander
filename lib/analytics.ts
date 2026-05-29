@@ -108,7 +108,11 @@ export const trackPrelandingView = (): void => {
   pushToReddit('ViewContent', {
     page_type: 'prelanding'
   });
-  
+
+  sendCAPIFunnelEvent('ViewContent', 'prelanding_view', {
+    contentName: 'ISRIB A15 Research',
+  });
+
   log('Prelanding view tracked');
 };
 
@@ -145,7 +149,11 @@ export const trackLandingViewFromPrelanding = (): void => {
     page_type: 'landing',
     source: 'prelanding'
   });
-  
+
+  sendCAPIFunnelEvent('ViewContent', 'landing_view', {
+    contentName: 'ISRIB A15',
+  });
+
   log('Landing view from prelanding tracked');
 };
 
@@ -164,7 +172,11 @@ export const trackLandingView = (): void => {
     page_type: 'landing',
     source: 'direct'
   });
-  
+
+  sendCAPIFunnelEvent('ViewContent', 'landing_view', {
+    contentName: 'ISRIB A15',
+  });
+
   log('Direct landing view tracked');
 };
 
@@ -231,7 +243,12 @@ export const trackProductView = (productName: string, price: number, format?: 'p
     product_price: price,
     product_format: format || 'powder',
   });
-  
+
+  sendCAPIFunnelEvent('ViewContent', 'product_view', {
+    contentName: `ISRIB A15 ${productName}`,
+    contentIds: ['isrib-a15'],
+  });
+
   log('Product view:', productName, format);
 };
 
@@ -411,3 +428,74 @@ export const trackPurchase = (
   
   log('Purchase tracked:', { orderId, product, price });
 };
+
+// ============================================
+// META CAPI — FUNNEL EVENTS (top-of-funnel)
+// ============================================
+
+const CAPI_ENDPOINT = 'https://isrib-analytics-api-fbqy.vercel.app/api/funnel-event';
+
+function getSessionEventId(key: string): string {
+  if (typeof window === 'undefined') return `${key}_ssr`;
+  const storageKey = `_capi_eid_${key}`;
+  let eid = sessionStorage.getItem(storageKey);
+  if (!eid) {
+    eid = `${key}_${Date.now()}_${Math.random().toString(36).substring(2, 9)}`;
+    sessionStorage.setItem(storageKey, eid);
+  }
+  return eid;
+}
+
+function getFbpFromCookie(): string | undefined {
+  if (typeof document === 'undefined') return undefined;
+  const val = document.cookie.split('; ').find(r => r.startsWith('_fbp='));
+  return val ? val.split('=')[1] : undefined;
+}
+
+function getFbcFromCookieOrUtm(): string | undefined {
+  if (typeof document === 'undefined') return undefined;
+  // 1. Try _fbc cookie (set by Meta Pixel)
+  const fbcCookie = document.cookie.split('; ').find(r => r.startsWith('_fbc='));
+  if (fbcCookie) return fbcCookie.split('=')[1];
+  // 2. Construct from fbclid in localStorage (stored by utm-capture.js on isrib.shop)
+  // On isrib-a15.com check URL params directly
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    const fbclid = urlParams.get('fbclid');
+    if (fbclid) return `fb.1.${Date.now()}.${fbclid}`;
+  } catch {}
+  return undefined;
+}
+
+async function sendCAPIFunnelEvent(
+  eventName: 'ViewContent' | 'InitiateCheckout',
+  eventIdKey: string,
+  options: {
+    contentName?: string;
+    contentIds?: string[];
+    value?: number;
+    currency?: string;
+  } = {}
+): Promise<void> {
+  if (typeof window === 'undefined' || typeof navigator === 'undefined') return;
+
+  const payload = {
+    event_name: eventName,
+    event_id: getSessionEventId(eventIdKey),
+    source_url: window.location.href,
+    fbp: getFbpFromCookie(),
+    fbc: getFbcFromCookieOrUtm(),
+    content_name: options.contentName ?? 'ISRIB A15',
+    content_ids: options.contentIds ?? ['isrib-a15'],
+    content_type: 'product',
+    ...(options.value !== undefined && { value: options.value, currency: options.currency ?? 'USD' }),
+  };
+
+  try {
+    const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
+    navigator.sendBeacon(CAPI_ENDPOINT, blob);
+    log('CAPI beacon sent:', eventName, eventIdKey);
+  } catch (e) {
+    log('CAPI beacon failed:', e);
+  }
+}
