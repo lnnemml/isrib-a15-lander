@@ -8,6 +8,7 @@ declare global {
       (command: 'get', target: string, field: string, callback: (value: string) => void): void;
       (...args: any[]): void;
     };
+    google_tag_manager?: Record<string, unknown>;
   }
 }
 

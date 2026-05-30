@@ -15,7 +15,9 @@ export function initGA4ClientIdCache(): void {
 
   // Try gtag first
   const tryGtag = () => {
-    if (window.gtag) {
+    if (window.gtag && window.google_tag_manager) {
+      const gaId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+      if (!gaId) return;
       window.gtag('get', gaId, 'client_id', (clientId: string) => {
         if (clientId) {
           cachedGAClientId = clientId;

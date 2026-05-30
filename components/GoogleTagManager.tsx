@@ -1,5 +1,4 @@
 'use client';
-
 import Script from 'next/script';
 
 const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-XXXXXXX';
@@ -7,7 +6,21 @@ const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-XXXXXXX';
 export default function GoogleTagManager() {
   return (
     <>
-      {/* Google Tag Manager Script */}
+      {/* gtag stub — має бути до GTM */}
+      <Script
+        id="gtag-stub"
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            window.gtag = gtag;
+            gtag('js', new Date());
+          `,
+        }}
+      />
+
+      {/* Google Tag Manager */}
       <Script
         id="gtm-script"
         strategy="afterInteractive"
@@ -21,6 +34,7 @@ export default function GoogleTagManager() {
           `,
         }}
       />
+
       {/* Microsoft Clarity */}
       <Script
         id="clarity-init"
@@ -35,17 +49,25 @@ export default function GoogleTagManager() {
           `,
         }}
       />
+
+      {/* Clarity UTM tags — читаємо з URL, не з ISRIBTracking */}
       <Script
         id="clarity-utm"
         strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: `
 (function(){
-  var utm = window.ISRIBTracking && window.ISRIBTracking.getUTM
-    ? window.ISRIBTracking.getUTM() : {};
-  if (utm.utm_content)  window.clarity("set","creative",utm.utm_content);
-  if (utm.utm_source)   window.clarity("set","source",utm.utm_source);
-  if (utm.utm_campaign) window.clarity("set","campaign",utm.utm_campaign);
+  try {
+    var params = new URLSearchParams(window.location.search);
+    var creative = params.get('utm_content');
+    var source = params.get('utm_source');
+    var campaign = params.get('utm_campaign');
+    if (typeof window.clarity === 'function') {
+      if (creative)  window.clarity("set","creative", creative);
+      if (source)    window.clarity("set","source", source);
+      if (campaign)  window.clarity("set","campaign", campaign);
+    }
+  } catch(e) {}
 })();
           `,
         }}
