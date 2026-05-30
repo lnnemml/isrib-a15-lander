@@ -35,10 +35,6 @@ export default function FAQ() {
       answer: "In animal studies, ISRIB showed no toxicity at effective doses across multiple research groups. UCSF's Dr. Peter Walter stated: 'We have never seen any relevant side effects. None. It is totally benign.' A15 has a different pharmacokinetic profile from original ISRIB — improved oral bioavailability, shorter systemic exposure per dose. Long-term human data is still emerging, as with all research compounds. We recommend the lowest effective dose and standard cycling protocols."
     },
     {
-      question: "Does blocking the ISR increase cancer risk?",
-      answer: "This question comes up in biohacker forums and deserves a direct answer. The concern conflates chronic therapeutic dosing (which is not what we're discussing) with short nootropic protocols. ISRIB A15 at nootropic doses (10–20mg, cycling 5-on/2-off) produces transient ISR modulation — not sustained suppression of stress response pathways. No oncogenic signal has been observed in animal studies at effective doses. The cancer risk hypothesis is based on theoretical mechanism, not experimental evidence. If this is a concern for you personally, consult your physician before use."
-    },
-    {
       question: "How is this different from modafinil or Adderall?",
       answer: "Stimulants (modafinil, amphetamines, even caffeine) work by upregulating wakefulness neurotransmitters — dopamine, orexin, norepinephrine. They push harder on an already-stressed system. ISRIB operates on protein synthesis pathways entirely upstream of neurotransmitters. It releases a cellular block rather than forcing stimulation. No dopaminergic mechanism means no tolerance, no dependence pathway, no crash. Many users describe it as the difference between pushing through fog and the fog simply lifting."
     },
