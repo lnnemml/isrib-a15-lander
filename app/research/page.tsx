@@ -32,7 +32,8 @@ export default function PreLanding() {
             </span>
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-black leading-tight mb-6 tracking-tight">
+          <h1 className="text-4xl md:text-5xl font-black leading-tight mb-6 tracking-tight"
+    style={{contentVisibility: 'auto'}}>
             You've Done Everything Right.
             <br />
             <span className="text-accent">Why Is Your Brain Still Failing You?</span>
