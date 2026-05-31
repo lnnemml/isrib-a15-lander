@@ -4,7 +4,14 @@ import { trackPrelandingView, trackPrelandingCTA } from '@/lib/analytics';
 
 export default function PreLanding() {
   useEffect(() => {
-    trackPrelandingView();
+    const sendPrelandingView = () => {
+      if (window.google_tag_manager) {
+        trackPrelandingView();
+      } else {
+        setTimeout(sendPrelandingView, 200);
+      }
+    };
+    setTimeout(sendPrelandingView, 500);
   }, []);
 
   const handleCTAClick = (location: string) => {
