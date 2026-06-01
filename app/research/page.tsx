@@ -30,12 +30,13 @@ export default function PreLanding() {
 
         <h1 className="text-3xl md:text-4xl font-black leading-tight mb-6 tracking-tight text-text-primary">
           There's a cellular switch in your brain
-          that nobody told you about.
+          that determines whether you think clearly.
         </h1>
 
         <p className="text-lg text-text-secondary leading-relaxed mb-4">
-          When it's stuck in the "off" position, no amount of sleep,
-          caffeine, or focus supplements will help.
+          When it's stuck, more sleep,
+          more caffeine, and more supplements
+          often make no difference.
         </p>
 
         <p className="text-lg text-accent font-semibold mb-10">
