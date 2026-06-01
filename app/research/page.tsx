@@ -29,8 +29,8 @@ export default function PreLanding() {
         </div>
 
         <h1 className="text-3xl md:text-4xl font-black leading-tight mb-6 tracking-tight text-text-primary">
-          There's a cellular switch in your brain
-          that determines whether you think clearly.
+          There's a cellular switch in your brain 
+          that nobody told you about.
         </h1>
 
         <p className="text-lg text-text-secondary leading-relaxed mb-4">
