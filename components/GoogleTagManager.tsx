@@ -23,7 +23,7 @@ export default function GoogleTagManager() {
       {/* Google Tag Manager */}
       <Script
         id="gtm-script"
-        strategy="afterInteractive"
+        strategy="lazyOnload"
         dangerouslySetInnerHTML={{
           __html: `
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -38,7 +38,7 @@ export default function GoogleTagManager() {
       {/* Microsoft Clarity */}
       <Script
         id="clarity-init"
-        strategy="afterInteractive"
+        strategy="lazyOnload"
         dangerouslySetInnerHTML={{
           __html: `
 (function(c,l,a,r,i,t,y){
@@ -53,7 +53,7 @@ export default function GoogleTagManager() {
       {/* Clarity UTM tags — читаємо з URL, не з ISRIBTracking */}
       <Script
         id="clarity-utm"
-        strategy="afterInteractive"
+        strategy="lazyOnload"
         dangerouslySetInnerHTML={{
           __html: `
 (function(){
