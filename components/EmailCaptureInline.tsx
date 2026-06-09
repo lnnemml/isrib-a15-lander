@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { trackEmailCapture } from '@/lib/analytics';
 
 export default function EmailCaptureInline() {
   const [email, setEmail] = useState('');
@@ -8,46 +9,38 @@ export default function EmailCaptureInline() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState('');
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setError('');
-    
+
     try {
-      // Send to n8n webhook
       const response = await fetch('https://isrib.shop/api/leads?action=subscribe', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email: email.trim().toLowerCase(),
           name: name.trim(),
           source: 'landing',
         }),
       });
-      
-      // Check if webhook accepted the request
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('Webhook error:', response.status, errorText);
-        throw new Error(`Webhook returned ${response.status}`);
+
+      if (!response.ok) throw new Error(`Webhook returned ${response.status}`);
+
+      try {
+        trackEmailCapture('landing_page_inline');
+      } catch (analyticsError) {
+        console.error('Analytics tracking error:', analyticsError);
       }
-      
+
       setIsSubmitted(true);
       setEmail('');
       setName('');
-
-      // Reset after 5 seconds
-      setTimeout(() => {
-        setIsSubmitted(false);
-      }, 5000);
+      setTimeout(() => setIsSubmitted(false), 5000);
     } catch (err) {
       console.error('Email submission error:', err);
       setError('Something went wrong. Please try again.');
-      
-      // Auto-retry once after 1 second
       setTimeout(async () => {
         try {
           const retryResponse = await fetch('https://isrib.shop/api/leads?action=subscribe', {
@@ -59,7 +52,6 @@ export default function EmailCaptureInline() {
               source: 'landing',
             }),
           });
-          
           if (retryResponse.ok) {
             setError('');
             setIsSubmitted(true);
@@ -75,96 +67,60 @@ export default function EmailCaptureInline() {
       setIsSubmitting(false);
     }
   };
-  
+
   return (
-    <section className="py-20 px-4 bg-gradient-to-b from-primary to-secondary/30">
-      <div className="max-w-4xl mx-auto">
-        <div className="bg-gradient-to-br from-secondary to-primary border-2 border-accent/30 rounded-lg p-12 text-center">
+    <section className="py-20 px-4 bg-secondary">
+      <div className="max-w-2xl mx-auto">
+        <div className="bg-gradient-to-br from-secondary to-primary border-2 border-accent/30 rounded-lg p-10 text-center">
           {!isSubmitted ? (
             <>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Not Ready to Buy Yet?
+              <p className="text-xs text-accent uppercase tracking-widest font-bold mb-4">Not ready to order yet?</p>
+              <h2 className="text-3xl font-black mb-3">
+                Get the Full Research & Dosing Protocol
               </h2>
-              <p className="text-xl text-gray-300 mb-8">
-                Get our free 4-day email series on how ISRIB works, user experiences, and exact protocols.
+              <p className="text-text-secondary mb-8">
+                The mechanism, the studies, and exactly how to run your first cycle — delivered over 4 emails.
               </p>
-              
+
               <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-                <div className="flex flex-col gap-4 mb-4">
+                <div className="flex flex-col gap-3 mb-3">
                   <input
                     type="text"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Your first name"
                     maxLength={50}
-                    className="w-full px-6 py-4 bg-primary border-2 border-accent/30 rounded-lg text-white text-lg focus:outline-none focus:border-accent transition-all"
+                    className="w-full px-5 py-4 bg-primary border-2 border-accent/30 rounded-lg text-white text-base focus:outline-none focus:border-accent transition-all"
                   />
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Enter your email"
-                      required
-                      className="flex-1 px-6 py-4 bg-primary border-2 border-accent/30 rounded-lg text-white text-lg focus:outline-none focus:border-accent transition-all"
-                    />
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="btn-primary whitespace-nowrap"
-                    >
-                      {isSubmitting ? 'Sending...' : 'Send Me the Series'}
-                    </button>
-                  </div>
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Your email"
+                    required
+                    className="w-full px-5 py-4 bg-primary border-2 border-accent/30 rounded-lg text-white text-base focus:outline-none focus:border-accent transition-all"
+                  />
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="btn-primary w-full"
+                  >
+                    {isSubmitting ? 'Sending...' : 'Get the Protocol'}
+                  </button>
                 </div>
-                
-                {error && (
-                  <p className="text-red-400 text-sm mb-2">{error}</p>
-                )}
-                
-                <p className="text-xs text-gray-400">
-                  No spam. Unsubscribe anytime. We respect your inbox.
-                </p>
+                {error && <p className="text-red-400 text-sm mb-2">{error}</p>}
+                <p className="text-xs text-gray-400">4 emails over 3 days. Unsubscribe anytime.</p>
               </form>
-              
-              <div className="mt-8 grid md:grid-cols-3 gap-6 text-left">
-                <div className="flex items-start">
-                  <span className="text-accent mr-3 text-xl">✓</span>
-                  <div>
-                    <p className="font-semibold text-sm">Day 1: The ISR Mechanism</p>
-                    <p className="text-xs text-gray-400">Why your brain is stuck</p>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <span className="text-accent mr-3 text-xl">✓</span>
-                  <div>
-                    <p className="font-semibold text-sm">Day 2: The Discovery</p>
-                    <p className="text-xs text-gray-400">UCSF's breakthrough</p>
-                  </div>
-                </div>
-                <div className="flex items-start">
-                  <span className="text-accent mr-3 text-xl">✓</span>
-                  <div>
-                    <p className="font-semibold text-sm">Day 3: User Results</p>
-                    <p className="text-xs text-gray-400">Real experiences</p>
-                  </div>
-                </div>
-              </div>
             </>
           ) : (
             <div className="py-8">
-              <div className="w-20 h-20 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                <svg className="w-10 h-10 text-accent" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd"/>
+              <div className="w-16 h-16 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-accent" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                 </svg>
               </div>
-              <h3 className="text-3xl font-bold mb-3">Check Your Email!</h3>
-              <p className="text-xl text-gray-300">
-                Email #1 is on its way. Check your inbox in the next few minutes.
-              </p>
-              <p className="text-sm text-gray-400 mt-4">
-                (Don't forget to check spam if you don't see it)
-              </p>
+              <h3 className="text-2xl font-bold mb-2">Check Your Email</h3>
+              <p className="text-gray-300">Email #1 arriving in the next few minutes.</p>
             </div>
           )}
         </div>

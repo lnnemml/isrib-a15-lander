@@ -35,20 +35,8 @@ export default function FAQ() {
       answer: "In animal studies, ISRIB showed no toxicity at effective doses across multiple research groups. UCSF's Dr. Peter Walter stated: 'We have never seen any relevant side effects. None. It is totally benign.' A15 has a different pharmacokinetic profile from original ISRIB — improved oral bioavailability, shorter systemic exposure per dose. Long-term human data is still emerging, as with all research compounds. We recommend the lowest effective dose and standard cycling protocols."
     },
     {
-      question: "How is this different from modafinil or Adderall?",
-      answer: "Stimulants (modafinil, amphetamines, even caffeine) work by upregulating wakefulness neurotransmitters — dopamine, orexin, norepinephrine. They push harder on an already-stressed system. ISRIB operates on protein synthesis pathways entirely upstream of neurotransmitters. It releases a cellular block rather than forcing stimulation. No dopaminergic mechanism means no tolerance, no dependence pathway, no crash. Many users describe it as the difference between pushing through fog and the fog simply lifting."
-    },
-    {
-      question: "What if I've tried modafinil, racetams, peptides — and nothing worked?",
-      answer: "This is the most common profile of ISRIB A15 users. If you're Stage 3–4 sophisticated (tried most things, getting diminishing returns), it's likely because everything you've tried works on neurotransmitter pathways — and that's not where your bottleneck is. If chronic ISR activation is the root cause, no amount of dopaminergic or cholinergic modulation will fix it. ISRIB A15 is the only compound currently available that targets eIF2B directly. That's why it works when other things don't."
-    },
-    {
       question: "How do I take it?",
       answer: "Capsule form: take one 20mg capsule in the morning, before 2pm, with or without food. Most users find 20mg sufficient; some sensitive individuals start at 10mg (powder form). Protocol: 5 days on, 2 days off. Or 2 weeks on, 1 week off. Full dosing guide and cycling strategy included with every order. No solvents, no scale required for capsule form."
-    },
-    {
-      question: "Will I feel it immediately?",
-      answer: "Not like a stimulant. ISRIB works by restoring protein synthesis — this takes 24-72 hours to produce measurable effects. Most users notice subtle changes by day 3 (easier task initiation, information sticking better). By day 5-7, the effect becomes unmistakable. If you feel nothing after 2 weeks, contact us — we'll troubleshoot dosing and timing."
     },
     {
       question: "Is it legal?",
@@ -57,6 +45,10 @@ export default function FAQ() {
     {
       question: "What about purity — how do I know it's not contaminated?",
       answer: "This is the right question to ask of any research compound vendor. Our answer: in-house synthesis by a pharmaceutical chemists, NMR verification on every batch, 98%+ HPLC purity, Certificate of Analysis included with every order. We don't buy bulk powder and rebrand it. We synthesize, purify, and verify. You can request the COA before purchasing."
+    },
+    {
+      question: "Will I feel it immediately?",
+      answer: "Not like a stimulant. ISRIB works by restoring protein synthesis — this takes 24-72 hours to produce measurable effects. Most users notice subtle changes by day 3 (easier task initiation, information sticking better). By day 5-7, the effect becomes unmistakable. If you feel nothing after 2 weeks, contact us — we'll troubleshoot dosing and timing."
     },
   ];
   

@@ -9,10 +9,10 @@ import EmailCaptureInline from '@/components/EmailCaptureInline';
 import Hero from '@/components/Hero';
 import Problem from '@/components/Problem';
 import WhoIsThisFor from '@/components/WhoIsThisFor';
-import Discovery from '@/components/Discovery';
 import Evidence from '@/components/Evidence';
-import PurityGuarantee from '@/components/PurityGuarantee';
+import MiniOffer from '@/components/MiniOffer';
 import Experience from '@/components/Experience';
+import Discovery from '@/components/Discovery';
 import CTASection from '@/components/CTASection';
 import FAQ from '@/components/FAQ';
 
@@ -20,23 +20,18 @@ function HomeContent() {
   const [showEmailModal, setShowEmailModal] = useState(false);
   const searchParams = useSearchParams();
 
-  // Track landing view with source detection
   useEffect(() => {
-    // Перевіряємо чи користувач прийшов з prelanding
     const isFromPrelanding =
       searchParams?.get('utm_campaign') === 'prelander' ||
       document.referrer.includes('/research');
 
     if (isFromPrelanding) {
-      // Якщо з prelanding - використовуємо старий event
       trackLandingViewFromPrelanding();
     } else {
-      // Якщо прямий заход (з Reddit Ads, Google, Direct) - новий event
       trackLandingView();
     }
   }, [searchParams]);
 
-  // Initialize GA4 Client ID cache
   useEffect(() => {
     setTimeout(() => {
       initGA4ClientIdCache();
@@ -48,17 +43,17 @@ function HomeContent() {
       <Hero onOpenEmail={() => setShowEmailModal(true)} />
       <Problem />
       <WhoIsThisFor />
-      <Discovery />
       <Evidence />
-      <PurityGuarantee />
+      <MiniOffer />
       <Experience />
-      <CTASection />
       <EmailCaptureInline />
+      <Discovery />
+      <CTASection />
       <FAQ />
-      
-      <EmailCapture 
-        isOpen={showEmailModal} 
-        onClose={() => setShowEmailModal(false)} 
+
+      <EmailCapture
+        isOpen={showEmailModal}
+        onClose={() => setShowEmailModal(false)}
       />
     </main>
   );
