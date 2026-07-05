@@ -3,14 +3,14 @@ export const PRODUCTS = [
     id: '500mg',
     name: 'ISRIB A15 500mg powder',
     price: 130,
-    description: '~65–100 doses at 5–10mg',
+    description: '~12–25 doses at 20–40mg',
     popular: false,
   },
   {
     id: '1g',
     name: 'ISRIB A15 1g powder',
     price: 200,
-    description: '~100–200 doses at 5–10mg',
+    description: '~25–50 doses at 20–40mg',
     popular: false,
   },
   {

@@ -63,14 +63,6 @@ export function buyerConfirmationEmail({
             </tr>
             <tr>
               <td style="padding:7px 0;border-bottom:1px solid #2a2a30;">
-                <span style="color:#f5f5f0;font-size:14px;font-weight:600;">Wise</span>
-              </td>
-              <td style="padding:7px 0;border-bottom:1px solid #2a2a30;color:#888;font-size:13px;text-align:right;">
-                We send transfer details
-              </td>
-            </tr>
-            <tr>
-              <td style="padding:7px 0;border-bottom:1px solid #2a2a30;">
                 <span style="color:#f5f5f0;font-size:14px;font-weight:600;">Crypto (self-custody)</span>
               </td>
               <td style="padding:7px 0;border-bottom:1px solid #2a2a30;color:#888;font-size:13px;text-align:right;">

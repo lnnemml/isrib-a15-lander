@@ -267,7 +267,7 @@ export default function CheckoutForm() {
           <p>• <strong className="text-[#f5f5f0]">PayPal:</strong> reply to the confirmation email and we'll send a PayPal request</p>
           <p>• <strong className="text-[#f5f5f0]">SEPA / SWIFT:</strong> reply to the confirmation email for bank details</p>
           <p>• <strong className="text-[#f5f5f0]">Crypto (self-custody):</strong> reply for wallet addresses (BTC, ETH, USDT)</p>
-          <p>• <strong className="text-[#f5f5f0]">Western Union / Wise:</strong> reply and we'll arrange details</p>
+          <p>• <strong className="text-[#f5f5f0]">Western Union:</strong> reply and we'll arrange details</p>
         </div>
 
         <p className="text-text-secondary text-xs mt-6 leading-relaxed">
@@ -359,7 +359,7 @@ export default function CheckoutForm() {
         )}
         {form.paymentMethod === 'manual' && (
           <p className="text-xs text-text-secondary mt-2">
-            PayPal · SEPA · SWIFT · Crypto (self-custody) · Western Union · Wise
+            PayPal · SEPA · SWIFT · Crypto (self-custody) · Western Union
           </p>
         )}
       </div>
