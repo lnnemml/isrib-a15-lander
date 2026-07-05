@@ -66,48 +66,77 @@ function fireBeginCheckout() {
   }
 }
 
-function fireOrderSubmitted(orderId: string, value: number, email: string) {
+function fireOrderSubmitted(
+  orderId: string,
+  value: number,
+  email: string,
+  paymentMethod: 'crypto' | 'manual'
+) {
   if (typeof window === 'undefined') return;
   const tracking = getStoredTracking() as Record<string, string>;
 
-  // 1. Browser Meta Pixel — Purchase event
+  const isRealConversion = paymentMethod === 'manual';
+
+  // 1. Browser Meta Pixel
   if (typeof (window as unknown as Record<string, unknown>).fbq === 'function') {
-    ((window as unknown as Record<string, unknown>).fbq as Function)(
-      'track',
-      'Purchase',
-      { value, currency: 'USD', content_ids: [orderId], content_type: 'product' },
-      { eventID: orderId }
-    );
+    if (isRealConversion) {
+      // Manual: fire Purchase immediately — best proxy we have
+      ((window as unknown as Record<string, unknown>).fbq as Function)(
+        'track',
+        'Purchase',
+        { value, currency: 'USD', content_ids: [orderId], content_type: 'product' },
+        { eventID: orderId }
+      );
+    } else {
+      // Crypto: fire InitiateCheckout — real Purchase comes from webhook
+      ((window as unknown as Record<string, unknown>).fbq as Function)(
+        'track',
+        'InitiateCheckout',
+        { value, currency: 'USD', content_ids: [orderId] },
+        { eventID: `ic_${orderId}` }
+      );
+    }
   }
 
-  // 2. GTM dataLayer — Purchase event (GA4 + any GTM triggers)
+  // 2. GTM dataLayer
   if (Array.isArray((window as unknown as Record<string, unknown>).dataLayer)) {
     ((window as unknown as Record<string, unknown>).dataLayer as unknown[]).push({
-      event: 'purchase',
+      event: isRealConversion ? 'purchase' : 'initiate_checkout',
       order_id: orderId,
       value,
       currency: 'USD',
+      payment_method: paymentMethod,
       ...tracking,
     });
   }
 
-  // 3. Server-side CAPI — Purchase event via analytics API
-  const blob = new Blob(
-    [JSON.stringify({
-      orderId,
-      value,
-      currency: 'USD',
-      email,
-      fbp: tracking.fbp ?? '',
-      fbc: tracking.fbc ?? '',
-      source: 'order_submitted',
-    })],
-    { type: 'application/json' }
-  );
-  navigator.sendBeacon(
-    'https://isrib-analytics-api-fbqy.vercel.app/api/confirm-purchase',
-    blob
-  );
+  // 3. Server-side CAPI
+  const capiEndpoint = isRealConversion
+    ? 'https://isrib-analytics-api-fbqy.vercel.app/api/confirm-purchase'
+    : 'https://isrib-analytics-api-fbqy.vercel.app/api/funnel-event';
+
+  const capiPayload = isRealConversion
+    ? {
+        orderId,
+        value,
+        currency: 'USD',
+        email,
+        fbp: tracking.fbp ?? '',
+        fbc: tracking.fbc ?? '',
+        source: 'order_submitted_manual',
+      }
+    : {
+        event: 'begin_checkout',
+        orderId,
+        value,
+        fbp: tracking.fbp ?? '',
+        fbc: tracking.fbc ?? '',
+        source_url: window.location.href,
+        event_id: `ic_${orderId}`,
+      };
+
+  const blob = new Blob([JSON.stringify(capiPayload)], { type: 'application/json' });
+  navigator.sendBeacon(capiEndpoint, blob);
 }
 
 export default function CheckoutForm() {
@@ -173,7 +202,7 @@ export default function CheckoutForm() {
         throw new Error(data.error ?? 'Something went wrong');
       }
 
-      fireOrderSubmitted(data.orderId!, data.amountChargedUsd!, form.email);
+      fireOrderSubmitted(data.orderId!, data.amountChargedUsd!, form.email, form.paymentMethod);
       setOrderId(data.orderId!);
 
       if (form.paymentMethod === 'crypto' && data.invoiceUrl) {
