@@ -5,7 +5,6 @@ import { createInvoice } from '@/lib/nowpayments';
 import { sendToCustomer, sendToAdmin } from '@/lib/resend';
 import { buyerConfirmationEmail } from '@/lib/emails/buyer-confirmation';
 import { adminNotificationEmail } from '@/lib/emails/admin-notification';
-import { Client } from '@upstash/qstash';
 
 function generateOrderId(): string {
   const ts = Date.now().toString(36).toUpperCase();
@@ -168,35 +167,42 @@ export async function POST(req: NextRequest) {
 
     // Enqueue abandoned checkout emails via QStash
     try {
-      const qstash = new Client({ token: process.env.QSTASH_TOKEN! });
-      const abandonedUrl = `${siteUrl}/api/abandoned-checkout`;
+      const { Client } = await import('@upstash/qstash');
 
-      const payload = JSON.stringify({
-        orderId,
-        firstName: firstName.trim(),
-        email,
-        productId: product.id,
-        productName: product.name,
-        amountChargedUsd,
-        paymentMethod,
-        invoiceUrl: invoiceUrl ?? null,
-      });
+      const qstashToken = process.env.QSTASH_TOKEN;
+      if (!qstashToken) {
+        console.error('[checkout] QSTASH_TOKEN is not set');
+      } else {
+        const qstash = new Client({ token: qstashToken });
+        const abandonedUrl = `${process.env.NEXT_PUBLIC_SITE_URL}/api/abandoned-checkout`;
 
-      // Email 1: 2 hours
-      await qstash.publishJSON({
-        url: abandonedUrl,
-        body: { ...JSON.parse(payload), emailNumber: 1 },
-        delay: 2 * 60 * 60,
-      });
+        const basePayload = {
+          orderId,
+          firstName: firstName.trim(),
+          email,
+          productId: product.id,
+          productName: product.name,
+          amountChargedUsd,
+          paymentMethod,
+          invoiceUrl: invoiceUrl ?? null,
+        };
 
-      // Email 2: 24 hours
-      await qstash.publishJSON({
-        url: abandonedUrl,
-        body: { ...JSON.parse(payload), emailNumber: 2 },
-        delay: 24 * 60 * 60,
-      });
+        const job1 = await qstash.publishJSON({
+          url: abandonedUrl,
+          body: { ...basePayload, emailNumber: 1 },
+          delay: 7200,
+        });
+        console.log('[checkout] QStash job1 enqueued:', job1.messageId);
+
+        const job2 = await qstash.publishJSON({
+          url: abandonedUrl,
+          body: { ...basePayload, emailNumber: 2 },
+          delay: 86400,
+        });
+        console.log('[checkout] QStash job2 enqueued:', job2.messageId);
+      }
     } catch (qErr) {
-      console.error('[checkout] QStash enqueue error:', qErr);
+      console.error('[checkout] QStash enqueue error details:', JSON.stringify(qErr, Object.getOwnPropertyNames(qErr)));
     }
 
     return NextResponse.json({
