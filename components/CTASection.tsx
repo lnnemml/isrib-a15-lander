@@ -1,13 +1,14 @@
 'use client';
 
 import { trackProductView, trackBuyClick, trackFormatSwitch } from '@/lib/analytics';
-import { appendTrackingParams } from '@/utils/cross-domain-linker';
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 
 type ProductFormat = 'powder' | 'capsules';
 
 export default function CTASection() {
+  const router = useRouter();
   // Default to capsules як ви просили
   const [selectedFormat, setSelectedFormat] = useState<ProductFormat>('capsules');
 
@@ -59,35 +60,21 @@ export default function CTASection() {
     }
   };
 
-  const handleBuyClick = async (
+  const productIdMap: Record<string, string> = {
+    '500mg': '500mg',
+    '1g': '1g',
+    '25-capsules': '25caps',
+    '50-capsules': '50caps',
+  };
+
+  const handleBuyClick = (
     product: '500mg' | '1g' | '25-capsules' | '50-capsules',
     price: number,
     location: string
   ) => {
-    // Track buy click FIRST (before redirect)
     trackBuyClick(product, price, location, selectedFormat);
-
-    // Get UTM parameters from current URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const utmSource = urlParams.get('utm_source') || 'direct';
-    const utmCampaign = urlParams.get('utm_campaign') || 'none';
-    const utmMedium = urlParams.get('utm_medium') || '';
-    const utmContent = urlParams.get('utm_content') || '';
-
-    // Build checkout URL with all attribution data
-    const checkoutUrl = new URL(`https://isrib.shop/buy-${product}.html`);
-    checkoutUrl.searchParams.set('product', product);
-    checkoutUrl.searchParams.set('amount', price.toString());
-    checkoutUrl.searchParams.set('format', selectedFormat);
-    checkoutUrl.searchParams.set('utm_source', utmSource);
-    checkoutUrl.searchParams.set('utm_campaign', utmCampaign);
-    if (utmMedium) checkoutUrl.searchParams.set('utm_medium', utmMedium);
-    if (utmContent) checkoutUrl.searchParams.set('utm_content', utmContent);
-
-    // Append tracking parameters (fbp, fbc, gacid) and redirect
-    const baseUrl = checkoutUrl.toString();
-    const enhancedUrl = await appendTrackingParams(baseUrl);
-    window.location.href = enhancedUrl;
+    const checkoutProductId = productIdMap[product] ?? '50caps';
+    router.push(`/checkout?product=${checkoutProductId}`);
   };
 
   return (
@@ -172,16 +159,12 @@ export default function CTASection() {
                 </li>
               </ul>
               
-              <a 
-                href="https://isrib.shop/buy-500mg.html" 
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleBuyClick('500mg', 130, 'cta_section');
-                }}
-                className="block btn-primary text-center"
+              <button
+                onClick={() => handleBuyClick('500mg', 130, 'cta_section')}
+                className="block btn-primary text-center w-full"
               >
                 Order 500mg Powder
-              </a>
+              </button>
             </div>
             
             {/* 1g Option */}
@@ -223,16 +206,12 @@ export default function CTASection() {
                 </li>
               </ul>
               
-              <a 
-                href="https://isrib.shop/buy-1g.html" 
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleBuyClick('1g', 200, 'cta_section');
-                }}
-                className="block btn-primary text-center"
+              <button
+                onClick={() => handleBuyClick('1g', 200, 'cta_section')}
+                className="block btn-primary text-center w-full"
               >
                 Order 1g Powder
-              </a>
+              </button>
             </div>
           </div>
         )}
@@ -273,16 +252,12 @@ export default function CTASection() {
                 </li>
               </ul>
               
-              <a 
-                href="https://isrib.shop/buy-25-capsules.html" 
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleBuyClick('25-capsules', 170, 'cta_section');
-                }}
-                className="block btn-primary text-center"
+              <button
+                onClick={() => handleBuyClick('25-capsules', 170, 'cta_section')}
+                className="block btn-primary text-center w-full"
               >
                 Order 25 Capsules
-              </a>
+              </button>
             </div>
             
             {/* 50 Capsules Option */}
@@ -324,16 +299,12 @@ export default function CTASection() {
                 </li>
               </ul>
               
-              <a 
-                href="https://isrib.shop/buy-50-capsules.html" 
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleBuyClick('50-capsules', 240, 'cta_section');
-                }}
-                className="block btn-primary text-center"
+              <button
+                onClick={() => handleBuyClick('50-capsules', 240, 'cta_section')}
+                className="block btn-primary text-center w-full"
               >
                 Order 50 Capsules
-              </a>
+              </button>
             </div>
           </div>
         )}
