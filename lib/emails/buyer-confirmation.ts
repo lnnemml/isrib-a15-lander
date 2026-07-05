@@ -48,7 +48,7 @@ export function buyerConfirmationEmail({
         <div style="background:#1a1a20;border-radius:8px;border:1px solid #2a2a30;padding:18px;margin-bottom:12px;">
           <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
             <span style="color:#f5f5f0;font-size:14px;font-weight:700;">PayPal</span>
-            <span style="color:#4ade80;font-size:11px;font-weight:600;">RECOMMENDED</span>
+            <span style="color:#4ade80;font-size:11px;font-weight:600;margin-left:8px;">RECOMMENDED</span>
           </div>
           <table style="width:100%;border-collapse:collapse;font-size:13px;">
             <tr style="border-bottom:1px solid #2a2a30;">
@@ -69,7 +69,7 @@ export function buyerConfirmationEmail({
             </tr>
           </table>
           <p style="color:#555;font-size:12px;margin:10px 0 0;line-height:1.5;">
-            Important: select <strong style="color:#888;">"Send to a friend"</strong> to avoid fees.
+            Important: select <strong style="color:#888;">"For friends and family"</strong> to avoid fees.
             Include your Order ID in the note field.
           </p>
         </div>
@@ -145,7 +145,7 @@ export function buyerConfirmationEmail({
         <!-- Other methods -->
         <div style="background:#111;border:1px solid #2a2a30;border-radius:8px;padding:14px 18px;margin-bottom:20px;">
           <p style="color:#888;font-size:13px;line-height:1.6;margin:0;">
-            Prefer SEPA, SWIFT, Wise, or Western Union?
+            Prefer SEPA, SWIFT, or Western Union?
             <a href="mailto:isrib.shop@protonmail.com?subject=Payment method for ${encodeURIComponent(orderId)}"
                style="color:#E8A427;text-decoration:none;font-weight:600;">
               Reply to this email

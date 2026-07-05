@@ -3,6 +3,7 @@ import { Receiver } from '@upstash/qstash';
 import { sql } from '@/lib/db';
 import { sendToCustomer } from '@/lib/resend';
 import { abandonedCheckoutEmail } from '@/lib/emails/abandoned-checkout';
+import { getCryptoRates } from '@/lib/crypto-rates';
 
 const receiver = new Receiver({
   currentSigningKey: process.env.QSTASH_CURRENT_SIGNING_KEY!,
@@ -73,6 +74,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ skipped: 'email2 already sent' });
     }
 
+    const rates = await getCryptoRates(amountChargedUsd);
+
     const { subject, html } = abandonedCheckoutEmail({
       firstName,
       orderId,
@@ -81,6 +84,8 @@ export async function POST(req: NextRequest) {
       paymentMethod,
       invoiceUrl: invoiceUrl ?? undefined,
       emailNumber,
+      btcEquivalent: rates.btcEquivalent,
+      ltcEquivalent: rates.ltcEquivalent,
     });
 
     await sendToCustomer(email, subject, html);

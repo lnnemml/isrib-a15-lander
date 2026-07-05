@@ -5,33 +5,12 @@ import { createInvoice } from '@/lib/nowpayments';
 import { sendToCustomer, sendToAdmin } from '@/lib/resend';
 import { buyerConfirmationEmail } from '@/lib/emails/buyer-confirmation';
 import { adminNotificationEmail } from '@/lib/emails/admin-notification';
+import { getCryptoRates } from '@/lib/crypto-rates';
 
 function generateOrderId(): string {
   const ts = Date.now().toString(36).toUpperCase();
   const rand = Math.random().toString(36).slice(2, 7).toUpperCase();
   return `ORD-${ts}-${rand}`;
-}
-
-async function getCryptoRates(amountUsd: number): Promise<{
-  btcEquivalent: string;
-  ltcEquivalent: string;
-}> {
-  try {
-    const res = await fetch(
-      'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,litecoin&vs_currencies=usd',
-      { next: { revalidate: 0 } }
-    );
-    if (!res.ok) throw new Error('CoinGecko error');
-    const data = await res.json() as {
-      bitcoin: { usd: number };
-      litecoin: { usd: number };
-    };
-    const btc = (amountUsd / data.bitcoin.usd).toFixed(6);
-    const ltc = (amountUsd / data.litecoin.usd).toFixed(4);
-    return { btcEquivalent: btc, ltcEquivalent: ltc };
-  } catch {
-    return { btcEquivalent: '', ltcEquivalent: '' };
-  }
 }
 
 export async function POST(req: NextRequest) {
