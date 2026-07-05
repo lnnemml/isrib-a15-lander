@@ -5,6 +5,8 @@ export function buyerConfirmationEmail({
   amountUsd,
   paymentMethod,
   invoiceUrl,
+  btcEquivalent,
+  ltcEquivalent,
 }: {
   firstName: string;
   orderId: string;
@@ -12,10 +14,12 @@ export function buyerConfirmationEmail({
   amountUsd: number;
   paymentMethod: 'crypto' | 'manual';
   invoiceUrl?: string;
+  btcEquivalent?: string;
+  ltcEquivalent?: string;
 }): { subject: string; html: string } {
   const subject =
     paymentMethod === 'manual'
-      ? `${firstName}, how would you like to pay? — Order ${orderId}`
+      ? `Your ISRIB A15 order — transfer details inside`
       : `${firstName}, complete your ISRIB A15 payment`;
 
   const paymentSection =
@@ -36,59 +40,127 @@ export function buyerConfirmationEmail({
       `
       : `
         <p style="color:#b0b0b0;font-size:15px;line-height:1.7;margin-bottom:20px;">
-          <strong style="color:#f5f5f0;">Reply to this email</strong> and let us know how you'd like to pay.
-          We'll take it from there within a few hours.
+          Send payment using one of the methods below.
+          Once received, we will confirm and start preparing your order.
         </p>
 
-        <div style="background:#1a1a20;border-radius:8px;border:1px solid #2a2a30;padding:20px;margin-bottom:24px;">
-          <p style="color:#888;font-size:11px;text-transform:uppercase;letter-spacing:0.08em;margin:0 0 14px;">
-            Available payment methods
+        <!-- PayPal -->
+        <div style="background:#1a1a20;border-radius:8px;border:1px solid #2a2a30;padding:18px;margin-bottom:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;">
+            <span style="color:#f5f5f0;font-size:14px;font-weight:700;">PayPal</span>
+            <span style="color:#4ade80;font-size:11px;font-weight:600;">RECOMMENDED</span>
+          </div>
+          <table style="width:100%;border-collapse:collapse;font-size:13px;">
+            <tr style="border-bottom:1px solid #2a2a30;">
+              <td style="padding:7px 0;color:#888;width:110px;">Send to</td>
+              <td style="padding:7px 0;color:#E8A427;font-weight:600;">isrib.shop@protonmail.com</td>
+            </tr>
+            <tr style="border-bottom:1px solid #2a2a30;">
+              <td style="padding:7px 0;color:#888;">Recipient name</td>
+              <td style="padding:7px 0;color:#f5f5f0;">Danylo Tsymbaliuk</td>
+            </tr>
+            <tr style="border-bottom:1px solid #2a2a30;">
+              <td style="padding:7px 0;color:#888;">Amount</td>
+              <td style="padding:7px 0;color:#f5f5f0;font-weight:700;">$${amountUsd.toFixed(2)} USD</td>
+            </tr>
+            <tr>
+              <td style="padding:7px 0;color:#888;">Note / Reference</td>
+              <td style="padding:7px 0;color:#E8A427;font-family:monospace;font-size:12px;">${orderId}</td>
+            </tr>
+          </table>
+          <p style="color:#555;font-size:12px;margin:10px 0 0;line-height:1.5;">
+            Important: select <strong style="color:#888;">"Send to a friend"</strong> to avoid fees.
+            Include your Order ID in the note field.
           </p>
-          <table style="width:100%;border-collapse:collapse;">
-            <tr>
-              <td style="padding:7px 0;border-bottom:1px solid #2a2a30;">
-                <span style="color:#f5f5f0;font-size:14px;font-weight:600;">PayPal</span>
-              </td>
-              <td style="padding:7px 0;border-bottom:1px solid #2a2a30;color:#888;font-size:13px;text-align:right;">
-                We send you a PayPal request
-              </td>
-            </tr>
-            <tr>
-              <td style="padding:7px 0;border-bottom:1px solid #2a2a30;">
-                <span style="color:#f5f5f0;font-size:14px;font-weight:600;">SEPA / SWIFT</span>
-              </td>
-              <td style="padding:7px 0;border-bottom:1px solid #2a2a30;color:#888;font-size:13px;text-align:right;">
-                We send bank details
-              </td>
-            </tr>
-            <tr>
-              <td style="padding:7px 0;border-bottom:1px solid #2a2a30;">
-                <span style="color:#f5f5f0;font-size:14px;font-weight:600;">Crypto (self-custody)</span>
-              </td>
-              <td style="padding:7px 0;border-bottom:1px solid #2a2a30;color:#888;font-size:13px;text-align:right;">
-                BTC, ETH, USDT wallet address
-              </td>
-            </tr>
-            <tr>
+        </div>
+
+        <!-- USDT -->
+        <div style="background:#1a1a20;border-radius:8px;border:1px solid #2a2a30;padding:18px;margin-bottom:12px;">
+          <p style="color:#f5f5f0;font-size:14px;font-weight:700;margin:0 0 12px;">USDT (TRC-20)</p>
+          <table style="width:100%;border-collapse:collapse;font-size:13px;">
+            <tr style="border-bottom:1px solid #2a2a30;">
+              <td style="padding:7px 0;color:#888;width:110px;">Address</td>
               <td style="padding:7px 0;">
-                <span style="color:#f5f5f0;font-size:14px;font-weight:600;">Western Union</span>
+                <code style="color:#E8A427;font-size:11px;word-break:break-all;">TDRnCaDUQQDRsZEQbBtMPKxa7MgHzuW5re</code>
               </td>
-              <td style="padding:7px 0;color:#888;font-size:13px;text-align:right;">
-                We arrange the details
+            </tr>
+            <tr style="border-bottom:1px solid #2a2a30;">
+              <td style="padding:7px 0;color:#888;">Network</td>
+              <td style="padding:7px 0;color:#f5f5f0;">TRON (TRC-20) only</td>
+            </tr>
+            <tr>
+              <td style="padding:7px 0;color:#888;">Amount</td>
+              <td style="padding:7px 0;color:#f5f5f0;font-weight:700;">${amountUsd.toFixed(2)} USDT</td>
+            </tr>
+          </table>
+          <p style="color:#f87171;font-size:12px;margin:10px 0 0;">
+            ⚠ Send only on TRC-20 network. Sending on wrong network = lost funds.
+          </p>
+        </div>
+
+        <!-- BTC -->
+        <div style="background:#1a1a20;border-radius:8px;border:1px solid #2a2a30;padding:18px;margin-bottom:12px;">
+          <p style="color:#f5f5f0;font-size:14px;font-weight:700;margin:0 0 12px;">Bitcoin (BTC)</p>
+          <table style="width:100%;border-collapse:collapse;font-size:13px;">
+            <tr style="border-bottom:1px solid #2a2a30;">
+              <td style="padding:7px 0;color:#888;width:110px;">Address</td>
+              <td style="padding:7px 0;">
+                <code style="color:#E8A427;font-size:11px;word-break:break-all;">bc1q4ujd2mfp6t6lcu3p2vlj4dxzs6rxhzzlcrh07m</code>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:7px 0;color:#888;">Amount</td>
+              <td style="padding:7px 0;color:#f5f5f0;font-weight:700;">
+                ${btcEquivalent ? `≈ ${btcEquivalent} BTC` : `≈ $${amountUsd} USD equivalent`}
+                <span style="color:#555;font-size:11px;display:block;margin-top:2px;">
+                  ${btcEquivalent ? `(rate at time of order — verify before sending)` : `(check current BTC rate before sending)`}
+                </span>
               </td>
             </tr>
           </table>
         </div>
 
-        <a href="mailto:isrib.shop@protonmail.com?subject=Payment for ${encodeURIComponent(orderId)}&body=Hi, I would like to pay via [METHOD] for order ${encodeURIComponent(orderId)}."
-           style="display:inline-block;background:#E8A427;color:#0D0D12;padding:13px 32px;border-radius:6px;font-weight:700;text-decoration:none;font-size:15px;margin-bottom:20px;">
-          Reply with payment method →
-        </a>
+        <!-- LTC -->
+        <div style="background:#1a1a20;border-radius:8px;border:1px solid #2a2a30;padding:18px;margin-bottom:20px;">
+          <p style="color:#f5f5f0;font-size:14px;font-weight:700;margin:0 0 12px;">Litecoin (LTC)</p>
+          <table style="width:100%;border-collapse:collapse;font-size:13px;">
+            <tr style="border-bottom:1px solid #2a2a30;">
+              <td style="padding:7px 0;color:#888;width:110px;">Address</td>
+              <td style="padding:7px 0;">
+                <code style="color:#E8A427;font-size:11px;word-break:break-all;">ltc1q27awh06ddvgma7pafsdk3sg5kny8f099zmewk7</code>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:7px 0;color:#888;">Amount</td>
+              <td style="padding:7px 0;color:#f5f5f0;font-weight:700;">
+                ${ltcEquivalent ? `≈ ${ltcEquivalent} LTC` : `≈ $${amountUsd} USD equivalent`}
+                <span style="color:#555;font-size:11px;display:block;margin-top:2px;">
+                  ${ltcEquivalent ? `(rate at time of order — verify before sending)` : `(check current LTC rate before sending)`}
+                </span>
+              </td>
+            </tr>
+          </table>
+        </div>
 
-        <p style="color:#555;font-size:13px;line-height:1.6;">
-          Once payment is received, we will ship your order and send tracking information to this email.
-          Typical shipping: 5–12 business days depending on your location.
-        </p>
+        <!-- Other methods -->
+        <div style="background:#111;border:1px solid #2a2a30;border-radius:8px;padding:14px 18px;margin-bottom:20px;">
+          <p style="color:#888;font-size:13px;line-height:1.6;margin:0;">
+            Prefer SEPA, SWIFT, Wise, or Western Union?
+            <a href="mailto:isrib.shop@protonmail.com?subject=Payment method for ${encodeURIComponent(orderId)}"
+               style="color:#E8A427;text-decoration:none;font-weight:600;">
+              Reply to this email
+            </a>
+            and we will arrange the details.
+          </p>
+        </div>
+
+        <div style="border-top:1px solid #2a2a30;padding-top:16px;">
+          <p style="color:#555;font-size:13px;line-height:1.6;margin:0;">
+            After sending, reply with a screenshot or transaction ID to speed up confirmation.
+            We ship within 1–3 business days of confirmed payment.
+            Typical delivery: 5–12 business days.
+          </p>
+        </div>
       `;
 
   const html = `
@@ -101,12 +173,12 @@ export function buyerConfirmationEmail({
       <table width="100%" style="max-width:560px;background:#141418;border-radius:12px;padding:40px;border:1px solid #2a2a30;">
         <tr><td>
           <p style="color:#E8A427;font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 20px;">
-            ${paymentMethod === 'manual' ? 'Order Received — Payment Pending' : 'Order Received'}
+            ${paymentMethod === 'manual' ? 'Order Received — Awaiting Payment' : 'Order Received'}
           </p>
 
           <h1 style="color:#f5f5f0;font-size:22px;font-weight:700;margin:0 0 6px;">
             ${paymentMethod === 'manual'
-              ? `${firstName}, one step left.`
+              ? `${firstName}, your order is in.`
               : `${firstName}, your order is placed.`}
           </h1>
 

@@ -12,6 +12,28 @@ function generateOrderId(): string {
   return `ORD-${ts}-${rand}`;
 }
 
+async function getCryptoRates(amountUsd: number): Promise<{
+  btcEquivalent: string;
+  ltcEquivalent: string;
+}> {
+  try {
+    const res = await fetch(
+      'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,litecoin&vs_currencies=usd',
+      { next: { revalidate: 0 } }
+    );
+    if (!res.ok) throw new Error('CoinGecko error');
+    const data = await res.json() as {
+      bitcoin: { usd: number };
+      litecoin: { usd: number };
+    };
+    const btc = (amountUsd / data.bitcoin.usd).toFixed(6);
+    const ltc = (amountUsd / data.litecoin.usd).toFixed(4);
+    return { btcEquivalent: btc, ltcEquivalent: ltc };
+  } catch {
+    return { btcEquivalent: '', ltcEquivalent: '' };
+  }
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -114,6 +136,10 @@ export async function POST(req: NextRequest) {
     `;
 
     // Send emails (non-blocking — don't fail order if email fails)
+    const cryptoRates = paymentMethod === 'manual'
+      ? await getCryptoRates(amountChargedUsd)
+      : { btcEquivalent: '', ltcEquivalent: '' };
+
     try {
       const { subject: buyerSubject, html: buyerHtml } = buyerConfirmationEmail({
         firstName: firstName.trim(),
@@ -122,6 +148,8 @@ export async function POST(req: NextRequest) {
         amountUsd: amountChargedUsd,
         paymentMethod,
         invoiceUrl: invoiceUrl ?? undefined,
+        btcEquivalent: cryptoRates.btcEquivalent,
+        ltcEquivalent: cryptoRates.ltcEquivalent,
       });
       await sendToCustomer(email, buyerSubject, buyerHtml);
 
