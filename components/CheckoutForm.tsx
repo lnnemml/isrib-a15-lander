@@ -66,32 +66,48 @@ function fireBeginCheckout() {
   }
 }
 
-function fireOrderSubmitted(orderId: string, value: number) {
+function fireOrderSubmitted(orderId: string, value: number, email: string) {
   if (typeof window === 'undefined') return;
   const tracking = getStoredTracking() as Record<string, string>;
-  const blob = new Blob(
-    [JSON.stringify({
-      event: 'order_submitted',
-      orderId,
-      value,
-      currency: 'USD',
-      fbp: tracking.fbp,
-      fbc: tracking.fbc,
-      source_url: window.location.href,
-    })],
-    { type: 'application/json' }
-  );
-  navigator.sendBeacon('https://isrib-analytics-api-fbqy.vercel.app/api/funnel-event', blob);
 
-  if (typeof window !== 'undefined' && (window as unknown as Record<string, unknown>).dataLayer) {
+  // 1. Browser Meta Pixel — Purchase event
+  if (typeof (window as unknown as Record<string, unknown>).fbq === 'function') {
+    ((window as unknown as Record<string, unknown>).fbq as Function)(
+      'track',
+      'Purchase',
+      { value, currency: 'USD', content_ids: [orderId], content_type: 'product' },
+      { eventID: orderId }
+    );
+  }
+
+  // 2. GTM dataLayer — Purchase event (GA4 + any GTM triggers)
+  if (Array.isArray((window as unknown as Record<string, unknown>).dataLayer)) {
     ((window as unknown as Record<string, unknown>).dataLayer as unknown[]).push({
-      event: 'order_submitted',
+      event: 'purchase',
       order_id: orderId,
       value,
       currency: 'USD',
       ...tracking,
     });
   }
+
+  // 3. Server-side CAPI — Purchase event via analytics API
+  const blob = new Blob(
+    [JSON.stringify({
+      orderId,
+      value,
+      currency: 'USD',
+      email,
+      fbp: tracking.fbp ?? '',
+      fbc: tracking.fbc ?? '',
+      source: 'order_submitted',
+    })],
+    { type: 'application/json' }
+  );
+  navigator.sendBeacon(
+    'https://isrib-analytics-api-fbqy.vercel.app/api/confirm-purchase',
+    blob
+  );
 }
 
 export default function CheckoutForm() {
@@ -100,21 +116,20 @@ export default function CheckoutForm() {
   const [errorMsg, setErrorMsg] = useState('');
   const [hasTrackedBegin, setHasTrackedBegin] = useState(false);
 
-  // Read product from URL param
-  const [form, setForm] = useState<FormData>(() => {
-    let initialProduct = '50caps';
-    if (typeof window !== 'undefined') {
-      const p = new URLSearchParams(window.location.search).get('product');
-      if (p && PRODUCTS.find((pr) => pr.id === p)) initialProduct = p;
-    }
-    return {
-      firstName: '',
-      email: '',
-      country: '',
-      productId: initialProduct,
-      paymentMethod: 'crypto',
-    };
+  const [form, setForm] = useState<FormData>({
+    firstName: '',
+    email: '',
+    country: '',
+    productId: '50caps',
+    paymentMethod: 'crypto',
   });
+
+  useEffect(() => {
+    const p = new URLSearchParams(window.location.search).get('product');
+    if (p && PRODUCTS.find((pr) => pr.id === p)) {
+      setForm((prev) => ({ ...prev, productId: p }));
+    }
+  }, []);
 
   const firstFieldRef = useRef(false);
 
@@ -158,7 +173,7 @@ export default function CheckoutForm() {
         throw new Error(data.error ?? 'Something went wrong');
       }
 
-      fireOrderSubmitted(data.orderId!, data.amountChargedUsd!);
+      fireOrderSubmitted(data.orderId!, data.amountChargedUsd!, form.email);
       setOrderId(data.orderId!);
 
       if (form.paymentMethod === 'crypto' && data.invoiceUrl) {

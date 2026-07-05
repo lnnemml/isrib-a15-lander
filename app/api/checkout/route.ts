@@ -144,6 +144,25 @@ export async function POST(req: NextRequest) {
       console.error('[checkout] email send error:', emailErr);
     }
 
+    // Fire CAPI Purchase server-side (order_submitted = primary conversion signal)
+    try {
+      await fetch('https://isrib-analytics-api-fbqy.vercel.app/api/confirm-purchase', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          orderId,
+          value: amountChargedUsd,
+          currency: 'USD',
+          email,
+          fbp: fbp ?? '',
+          fbc: fbc ?? '',
+          source: 'order_submitted_landing',
+        }),
+      });
+    } catch (capiErr) {
+      console.error('[checkout] CAPI error:', capiErr);
+    }
+
     // Enqueue abandoned checkout emails via QStash
     try {
       const qstash = new Client({ token: process.env.QSTASH_TOKEN! });
