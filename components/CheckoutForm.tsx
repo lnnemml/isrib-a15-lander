@@ -243,37 +243,62 @@ export default function CheckoutForm() {
   if (formState === 'manual_pending') {
     return (
       <div className="card">
-        <div className="text-accent font-semibold text-sm uppercase tracking-widest mb-4">
+        <div
+          style={{
+            width: 48,
+            height: 48,
+            borderRadius: '50%',
+            background: '#1f1a0d',
+            border: '1px solid #E8A427',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: 22,
+            marginBottom: 24,
+          }}
+        >
+          ✓
+        </div>
+
+        <p style={{ color: '#E8A427', fontSize: 12, fontWeight: 600, letterSpacing: '0.08em', textTransform: 'uppercase' as const, margin: '0 0 12px' }}>
           Order Received
-        </div>
-        <h2 className="section-heading mb-2">One last step — send payment.</h2>
-        <p className="text-text-secondary text-sm mb-6">
-          Order ID: <span className="font-mono text-accent">{orderId}</span>
         </p>
 
-        <div className="bg-[#1a1a20] border border-[#2a2a30] rounded-lg p-5 mb-6 space-y-3 text-sm">
-          <div className="flex justify-between">
-            <span className="text-text-secondary">Amount due</span>
-            <span className="text-[#f5f5f0] font-bold">${price} USD</span>
-          </div>
-          <div className="flex justify-between">
-            <span className="text-text-secondary">Product</span>
-            <span className="text-[#f5f5f0]">{selectedProduct.name}</span>
-          </div>
-        </div>
+        <h2 style={{ color: '#f5f5f0', fontSize: 22, fontWeight: 700, margin: '0 0 8px', lineHeight: 1.3 }}>
+          Check your email.
+        </h2>
 
-        <div className="space-y-3 text-sm text-text-secondary">
-          <p className="font-semibold text-[#f5f5f0]">Payment options:</p>
-          <p>• <strong className="text-[#f5f5f0]">PayPal:</strong> reply to the confirmation email and we'll send a PayPal request</p>
-          <p>• <strong className="text-[#f5f5f0]">SEPA / SWIFT:</strong> reply to the confirmation email for bank details</p>
-          <p>• <strong className="text-[#f5f5f0]">Crypto (self-custody):</strong> reply for wallet addresses (BTC, ETH, USDT)</p>
-          <p>• <strong className="text-[#f5f5f0]">Western Union:</strong> reply and we'll arrange details</p>
-        </div>
-
-        <p className="text-text-secondary text-xs mt-6 leading-relaxed">
-          We've sent a confirmation to your email. Reply to it with your preferred payment method
-          and we'll get back to you within a few hours. Include your Order ID in the subject.
+        <p style={{ color: '#888', fontSize: 14, margin: '0 0 28px' }}>
+          Order ID: <span style={{ color: '#E8A427', fontFamily: 'monospace' }}>{orderId}</span>
         </p>
+
+        <p style={{ color: '#b0b0b0', fontSize: 15, lineHeight: 1.7, margin: '0 0 20px' }}>
+          We&apos;ve sent payment instructions to your email — PayPal, USDT, BTC,
+          and LTC details are all there. After sending payment, reply to that email
+          with a screenshot or transaction ID so we can confirm faster.
+        </p>
+
+        <div
+          style={{
+            background: '#1a1a20',
+            border: '1px solid #2a2a30',
+            borderRadius: 8,
+            padding: '14px 18px',
+            marginBottom: 24,
+          }}
+        >
+          <p style={{ color: '#888', fontSize: 13, lineHeight: 1.6, margin: 0 }}>
+            Once we receive payment, we&apos;ll confirm your order and reach out for
+            your shipping address. Typical processing: 1–3 business days.
+          </p>
+        </div>
+
+        <a
+          href="/"
+          style={{ color: '#555', fontSize: 13, textDecoration: 'none' }}
+        >
+          ← Back to ISRIB A15
+        </a>
       </div>
     );
   }
