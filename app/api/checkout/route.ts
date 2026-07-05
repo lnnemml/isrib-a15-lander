@@ -88,7 +88,7 @@ export async function POST(req: NextRequest) {
         orderId,
         amountUsd: amountChargedUsd,
         productName: product.name,
-        successUrl: `${siteUrl}/checkout?status=paid&order_id=${orderId}`,
+        successUrl: `${siteUrl}/checkout/success`,
         cancelUrl: `${siteUrl}/checkout?status=cancelled&order_id=${orderId}`,
       });
       invoiceId = invoice.id;
