@@ -73,7 +73,7 @@ export function buyerConfirmationEmail({
           </p>
         </td></tr>
       </table>
-      <p style="color:#333;font-size:12px;margin-top:24px;">The Synthesis Lab · isrib-a15.com</p>
+      <p style="color:#333;font-size:12px;margin-top:24px;">ISRIB A15 · isrib-a15.com</p>
     </td></tr>
   </table>
 </body>

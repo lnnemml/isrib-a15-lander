@@ -17,7 +17,7 @@ function getAdminEmails(): string[] {
 
 export async function sendToCustomer(email: string, subject: string, html: string): Promise<void> {
   await getResend().emails.send({
-    from: `The Synthesis Lab <${getFrom()}>`,
+    from: `ISRIB A15 <${getFrom()}>`,
     to: email,
     replyTo: 'isrib.shop@protonmail.com',
     subject,
