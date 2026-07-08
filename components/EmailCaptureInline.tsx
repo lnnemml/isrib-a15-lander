@@ -74,12 +74,13 @@ export default function EmailCaptureInline() {
         <div className="bg-gradient-to-br from-secondary to-primary border-2 border-accent/30 rounded-lg p-10 text-center">
           {!isSubmitted ? (
             <>
-              <p className="text-xs text-accent uppercase tracking-widest font-bold mb-4">Not ready to order yet?</p>
+              <p className="text-xs text-accent uppercase tracking-widest font-bold mb-4">Not ready yet?</p>
               <h2 className="text-3xl font-black mb-3">
-                Get the Full Research & Dosing Protocol
+                Get the research.
               </h2>
               <p className="text-text-secondary mb-8">
-                The mechanism, the studies, and exactly how to run your first cycle — delivered over 4 emails.
+                We'll send you the UCSF findings, real user experiences from people 50+,
+                and the complete dosing protocol. No spam.
               </p>
 
               <form onSubmit={handleSubmit} className="max-w-md mx-auto">

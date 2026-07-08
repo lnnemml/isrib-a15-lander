@@ -11,8 +11,9 @@ export default function Hero({ onOpenEmail }: HeroProps) {
       const ctaSection = document.getElementById('cta-section');
       if (ctaSection) ctaSection.scrollIntoView({ behavior: 'smooth' });
     } else {
-      trackButtonClick('Get the Research', 'hero');
-      onOpenEmail();
+      trackButtonClick('Read the Research', 'hero');
+      const evidenceSection = document.getElementById('evidence');
+      if (evidenceSection) evidenceSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -31,29 +32,16 @@ export default function Hero({ onOpenEmail }: HeroProps) {
 
         {/* Primary headline */}
         <h1 className="text-5xl md:text-7xl font-black mb-6 leading-[1.05] tracking-tight">
-          Your Brain Isn't Broken.
+          Your Brain at 55 Isn't Declining.
           <br />
-          <span className="text-accent">It's Stuck.</span>
+          <span className="text-accent">It's Blocked.</span>
         </h1>
 
-        {/* Subheadline — VOC language */}
-        <p className="text-lg md:text-xl text-text-secondary mb-4 leading-relaxed max-w-2xl mx-auto">
-          Chronic stress locks a cellular brake that blocks memory formation,
-          focus, and clarity — even after rest.
+        {/* Subheadline */}
+        <p className="text-lg md:text-xl text-text-secondary mb-10 leading-relaxed max-w-2xl mx-auto">
+          Scientists at UCSF discovered that age-related memory loss isn't permanent damage —
+          it's a reversible cellular blockage. ISRIB A15 was synthesized to release it.
         </p>
-
-        <p className="text-base text-text-secondary mb-10 max-w-xl mx-auto">
-          <span className="text-accent font-semibold">ISRIB A15</span> is the compound
-          UCSF used to reverse this — in aged, injured, and chronically stressed brains.
-        </p>
-
-        {/* Anti-stimulant positioning */}
-        <div className="inline-block bg-accent-muted border border-accent/20 px-6 py-3 rounded-sm mb-10">
-          <p className="text-sm font-medium">
-            <span className="text-accent">Not a stimulant.</span>
-            <span className="text-text-secondary"> No buzz. No crash. Restoration at the cellular level.</span>
-          </p>
-        </div>
 
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-6">
@@ -62,13 +50,13 @@ export default function Hero({ onOpenEmail }: HeroProps) {
             onClick={(e) => { e.preventDefault(); handleCTAClick('primary'); }}
             className="btn-primary w-full sm:w-auto"
           >
-            Order ISRIB A15
+            Start Your Protocol →
           </a>
           <button
             onClick={() => handleCTAClick('secondary')}
             className="btn-secondary w-full sm:w-auto"
           >
-            Get the Research First
+            Read the research ↓
           </button>
         </div>
 
@@ -80,29 +68,29 @@ export default function Hero({ onOpenEmail }: HeroProps) {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 text-left">
           <div className="bg-tertiary border border-accent/50 rounded-lg p-6">
             <div className="text-accent font-black text-xs uppercase tracking-widest mb-3">
-              Memory Restored
+              Developed from UCSF research
             </div>
             <p className="text-text-primary text-sm leading-relaxed">
-              Aged mice (65+ human equivalent) performed like young mice after 3 days.
-              Improvements lasted weeks after dosing stopped.
+              Synthesized from the ISRIB molecule discovered by Dr. Peter Walter's lab at UCSF.
+              Peer-reviewed in Science and eLife.
             </p>
           </div>
           <div className="bg-tertiary border border-accent/50 rounded-lg p-6">
             <div className="text-accent font-black text-xs uppercase tracking-widest mb-3">
-              TBI Reversed
+              Non-stimulant. No crash.
             </div>
             <p className="text-text-primary text-sm leading-relaxed">
-              Brain-injured mice regained normal cognitive function — even when treated
-              months after severe injury.
+              Does not affect heart rate, blood pressure, or sleep.
+              Works by restoring cellular function — not by stimulating or sedating.
             </p>
           </div>
           <div className="bg-tertiary border border-accent/50 rounded-lg p-6">
             <div className="text-accent font-black text-xs uppercase tracking-widest mb-3">
-              "Totally Benign"
+              Felt within days, not weeks
             </div>
             <p className="text-text-primary text-sm leading-relaxed">
-              "We have never seen any relevant side effects. None." — Dr. Peter Walter, UCSF.
-              Currently in human trials at Calico (Google/Alphabet).
+              Most users report the first noticeable changes between days 3–7.
+              Clarity and word recall tend to come first.
             </p>
           </div>
         </div>

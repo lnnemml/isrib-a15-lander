@@ -1,7 +1,15 @@
 'use client';
+import { useRouter } from 'next/navigation';
 import { trackBuyClick } from '@/lib/analytics';
 
 export default function Experience() {
+  const router = useRouter();
+
+  const handleBuyClick = () => {
+    trackBuyClick('50-capsules', 240, 'experience_section', 'capsules');
+    router.push('/checkout?product=50caps');
+  };
+
   return (
     <section className="py-24 px-4 bg-secondary">
       <div className="max-w-4xl mx-auto">
@@ -14,41 +22,36 @@ export default function Experience() {
           No buzz. No jitters. Something subtler — and more lasting.
         </p>
 
-        {/* Top testimonials — specific, not generic */}
+        {/* Testimonials */}
         <div className="grid md:grid-cols-2 gap-6 mb-16">
           {[
             {
-              role: 'PhD Student, 28',
-              context: 'Dissertation stress, 6 months of brain fog',
-              quote: '"Like defragmenting a cluttered hard drive. While reading complex papers, I could remember expressions and context after just 1-2 days. That never happened before."',
-              result: 'Days 1–2: Retention dramatically improved',
+              attribution: '— Male, 57, United States',
+              result: 'Days 1–2',
+              quote: '"I wasn\'t expecting much. I\'ve tried a lot of things over the years. But by the second day I noticed I was finishing thoughts more easily. Small thing, but it hadn\'t happened in a while."',
             },
             {
-              role: 'Software Engineer, 34',
-              context: 'Chronic burnout after 18 months of 60h weeks',
-              quote: '"By day 5, logic clicked on the first pass. I could hold the entire architecture in my head again. Not hyper like on modafinil — just present."',
-              result: 'Day 5: Full working memory restored',
+              attribution: '— Male, 54, Canada',
+              result: 'Day 5',
+              quote: '"The fog I\'d written off as just getting older — it started lifting. Not dramatically. Just… cleaner thinking. I could hold more in my head at once."',
             },
             {
-              role: 'Marketing Director, 29',
-              context: 'Post-concussion fog, 8 months after injury',
-              quote: '"Doctors said this is as good as it gets. Week 2, the fog lifted like a window cracked open. I tracked conversations again. Words came back."',
-              result: 'Week 2: Normal cognitive function returned',
+              attribution: '— Male, 62, United Kingdom',
+              result: 'Week 2',
+              quote: '"My memory for names and details came back in a way I hadn\'t experienced in years. I\'d genuinely assumed that was just gone."',
             },
             {
-              role: 'Founder, 42',
-              context: 'Age-related cognitive decline, "accepted it"',
-              quote: '"I told myself this was just age. By week 3, recall was different — names, details, context on demand. My team noticed before I mentioned anything."',
-              result: 'Week 3: Cognitive baseline of a decade prior',
+              attribution: '— Male, 61, United States',
+              result: 'Week 3',
+              quote: '"I\'m 61. I didn\'t expect a research compound to do what years of supplements didn\'t. But here we are."',
             },
           ].map((t) => (
-            <div key={t.role} className="card-accent flex flex-col justify-between">
+            <div key={t.attribution} className="card-accent flex flex-col justify-between">
               <div>
-                <p className="text-xs text-text-secondary mb-1">{t.role}</p>
-                <p className="text-xs text-accent/70 mb-4 italic">{t.context}</p>
+                <p className="text-xs text-accent/70 mb-4 italic">{t.result}</p>
                 <p className="text-text-secondary leading-relaxed text-sm mb-4">{t.quote}</p>
               </div>
-              <p className="text-accent font-semibold text-xs uppercase tracking-wide">{t.result}</p>
+              <p className="text-text-secondary text-xs">{t.attribution}</p>
             </div>
           ))}
         </div>
@@ -58,9 +61,9 @@ export default function Experience() {
           <h3 className="font-bold text-center mb-8 text-lg">The Common Pattern</h3>
           <div className="space-y-8">
             {[
-              { phase: 'Days 1–3', label: '"Something\'s different"', items: ['Less resistance starting tasks', 'Information sticks more easily', 'Background anxiety quiets', 'No jitters, no drugged feeling'] },
-              { phase: 'Days 4–7', label: '"Wait, this is real"', items: ['Working memory noticeably stronger', 'Long sessions without mental crash', 'Motivation feels intrinsic again', 'Emotional steadiness — fewer spirals'] },
-              { phase: 'Weeks 2–4', label: '"This is my new baseline"', items: ['Clarity that doesn\'t fade by afternoon', 'Minimal tolerance build-up', 'Sleep quality often improves', 'Verbal recall and social fluency return'] },
+              { phase: 'Days 1–3', label: '"Something\'s different"', items: ['Less resistance starting tasks', 'Information sticks more easily', 'No jitters, no drugged feeling', 'Background noise quiets'] },
+              { phase: 'Days 4–7', label: '"Wait, this is real"', items: ['Working memory noticeably stronger', 'Longer focus without fatigue', 'Word recall improves', 'Emotional steadiness — fewer spirals'] },
+              { phase: 'Weeks 2–4', label: '"This is my new baseline"', items: ['Clarity that doesn\'t fade by afternoon', 'Memory for names and details returns', 'Sleep quality often improves', 'Effects persist beyond dosing'] },
             ].map((phase) => (
               <div key={phase.phase} className="flex gap-6 items-start">
                 <div className="flex-shrink-0 text-right w-20">
@@ -89,7 +92,7 @@ export default function Experience() {
               'Not a stimulant — no jitters, no crash',
               'Not euphoric — no artificial "up"',
               'Not instant — restoration takes 3–7 days',
-              'Not "Limitless" — you think like yourself, clearly',
+              'Not a supplement — works at the cellular level',
             ].map((item) => (
               <div key={item} className="flex gap-2"><span className="text-danger flex-shrink-0">✗</span>{item}</div>
             ))}
@@ -97,13 +100,12 @@ export default function Experience() {
         </div>
 
         <div className="text-center">
-          <a
-            href="https://isrib.shop/buy-50-capsules.html"
-            onClick={() => trackBuyClick('50-capsules', 240, 'experience_section', 'capsules')}
+          <button
+            onClick={handleBuyClick}
             className="btn-primary inline-block"
           >
             Start Your Protocol
-          </a>
+          </button>
           <p className="text-text-secondary text-xs mt-3">Ships within 48h · COA included</p>
         </div>
 

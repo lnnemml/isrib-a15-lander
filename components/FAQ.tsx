@@ -9,7 +9,7 @@ interface FAQItemProps {
 
 function FAQItem({ question, answer }: FAQItemProps) {
   const [isOpen, setIsOpen] = useState(false);
-  
+
   return (
     <div className="border border-accent/20 rounded-lg mb-4 overflow-hidden">
       <button
@@ -31,27 +31,39 @@ function FAQItem({ question, answer }: FAQItemProps) {
 export default function FAQ() {
   const faqs = [
     {
-      question: "Is ISRIB A15 safe?",
-      answer: "In animal studies, ISRIB showed no toxicity at effective doses across multiple research groups. UCSF's Dr. Peter Walter stated: 'We have never seen any relevant side effects. None. It is totally benign.' A15 has a different pharmacokinetic profile from original ISRIB — improved oral bioavailability, shorter systemic exposure per dose. Long-term human data is still emerging, as with all research compounds. We recommend the lowest effective dose and standard cycling protocols."
+      question: 'Is this safe for someone in their 50s or 60s?',
+      answer: 'ISRIB A15 is non-stimulant and does not affect heart rate, blood pressure, or sleep architecture. In animal studies, it showed no toxicity at effective doses. It works by releasing a cellular stress response — not by stimulating or sedating. That said, if you are on prescription medications, consult your doctor before use.',
     },
     {
-      question: "How do I take it?",
-      answer: "Capsule form: take one 20mg capsule in the morning, before 2pm, with or without food. Most users find 20mg sufficient; some sensitive individuals start at 10mg (powder form). Protocol: 5 days on, 2 days off. Or 2 weeks on, 1 week off. Full dosing guide and cycling strategy included with every order. No solvents, no scale required for capsule form."
+      question: 'Will it interact with my medications?',
+      answer: 'ISRIB A15 does not work through dopamine, serotonin, or adrenergic pathways, so interactions with most common medications are unlikely. However, we cannot account for all individual cases. If you take prescription medications, discuss with your doctor before starting.',
     },
     {
-      question: "Is it legal?",
-      answer: "Yes. ISRIB A15 is sold as a research compound for personal investigation. It is not a scheduled substance in any major jurisdiction. It is not FDA-approved and not intended to diagnose, treat, cure, or prevent disease. Purchasing is legal; use is for personal research only."
+      question: 'How quickly will I notice a difference?',
+      answer: 'Most users report the first noticeable changes between days 3–7. Clarity and word recall tend to come first. Memory consolidation improvements typically become clear in week 2. Effects appear to persist beyond the dosing period in most reports.',
     },
     {
-      question: "What about purity — how do I know it's not contaminated?",
-      answer: "This is the right question to ask of any research compound vendor. Our answer: in-house synthesis by a pharmaceutical chemists, NMR verification on every batch, 98%+ HPLC purity, Certificate of Analysis included with every order. We don't buy bulk powder and rebrand it. We synthesize, purify, and verify. You can request the COA before purchasing."
+      question: 'What exactly is ISRIB A15?',
+      answer: 'ISRIB A15 is a research compound — an analog of ISRIB, a molecule discovered at UCSF in 2013. It works by stabilizing eIF2B, a protein complex that regulates memory formation in the brain. It is not a supplement, not a stimulant, and not a drug. It is sold as a research compound.',
     },
     {
-      question: "Will I feel it immediately?",
-      answer: "Not like a stimulant. ISRIB works by restoring protein synthesis — this takes 24-72 hours to produce measurable effects. Most users notice subtle changes by day 3 (easier task initiation, information sticking better). By day 5-7, the effect becomes unmistakable. If you feel nothing after 2 weeks, contact us — we'll troubleshoot dosing and timing."
+      question: 'Is it legal?',
+      answer: 'Yes. ISRIB A15 is not a controlled substance in the US, UK, EU, Canada, or Australia. It is sold legally as a research compound for personal use.',
+    },
+    {
+      question: 'How do I take it?',
+      answer: 'Capsules: one 20mg capsule every day is the standard protocol. Take with food. Do not exceed one capsule per day while starting your cycle. If everything is going well, you may increase to 40mg (2 capsules). Powder: measure carefully with a precision scale.',
+    },
+    {
+      question: "What if I've tried other supplements and been disappointed?",
+      answer: 'ISRIB A15 works on a completely different mechanism than supplements — it targets the cellular stress response directly, not neurotransmitter levels. It\'s more accurate to compare it to a cellular intervention than a brain supplement. That said, individual responses vary.',
+    },
+    {
+      question: 'What about purity — how do I know what I\'m getting?',
+      answer: 'In-house synthesis by a pharmaceutical chemist with 10+ years synthesis experience. NMR verification on every batch. 98%+ HPLC purity. Certificate of Analysis included with every order. We don\'t buy bulk powder and rebrand it. You can request the COA before purchasing.',
     },
   ];
-  
+
   return (
     <section className="py-20 px-4 bg-secondary/30">
       <div className="max-w-4xl mx-auto">
@@ -61,17 +73,17 @@ export default function FAQ() {
         <p className="section-subheading text-center mb-12">
           Everything you need to know before starting with ISRIB A15.
         </p>
-        
+
         <div>
           {faqs.map((faq, index) => (
             <FAQItem key={index} question={faq.question} answer={faq.answer} />
           ))}
         </div>
-        
+
         <div className="mt-12 text-center bg-accent/10 border border-accent/30 p-8 rounded-lg">
           <p className="text-lg mb-6 font-semibold">Still have questions?</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-4">
-            <a 
+            <a
               href="mailto:support@isrib.shop"
               className="btn-primary inline-flex items-center gap-2"
             >

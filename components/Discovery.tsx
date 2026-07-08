@@ -1,5 +1,3 @@
-import { trackBuyClick } from '@/lib/analytics';
-
 export default function Discovery() {
   return (
     <section className="py-24 px-4 bg-secondary">
@@ -10,10 +8,11 @@ export default function Discovery() {
           The Discovery That Changed Everything
         </h2>
         <p className="section-subheading text-center">
-          In 2013, a UCSF lab wasn't looking for a cognitive enhancer. They found one anyway.
+          In 2013, a UCSF lab made a breakthrough that aging researchers are still
+          paying close attention to.
         </p>
 
-        {/* Story — narrative, not encyclopedia */}
+        {/* Story — narrative */}
         <div className="space-y-6 mb-16">
           <div className="card border-l-2 border-accent/40 rounded-none rounded-r-lg">
             <p className="text-xs text-accent uppercase tracking-wider font-bold mb-3">The Cellular Brake</p>
@@ -34,9 +33,9 @@ export default function Discovery() {
             <p className="text-xs text-accent uppercase tracking-wider font-bold mb-3">What Happened in the Lab</p>
             <div className="space-y-4">
               {[
-                { year: '2013', label: 'Healthy mice', result: 'Navigated mazes in 16 seconds vs 60+ seconds for controls. First demonstration of genuine cognitive enhancement.' },
+                { year: '2013', label: 'Healthy mice', result: 'Navigated mazes in 16 seconds vs 60+ seconds for controls. First demonstration of the compound\'s effect on cognitive performance.' },
                 { year: '2017', label: 'Brain-injured mice', result: 'Normal cognitive function restored — even in animals treated 4 months after severe TBI. Synaptic connections physically regrew.' },
-                { year: '2020', label: 'Aged mice (65+ human equivalent)', result: 'Performed like young mice after 3 days of treatment. Improvements lasted weeks after dosing stopped. Researchers: "the aged brain isn\'t lost — it\'s trapped."' },
+                { year: '2020', label: 'Aged mice (65+ human equivalent)', result: 'Performed like young mice after a few doses. Improvements lasted weeks after dosing stopped. The eLife paper described the aged brain as "not lost — just trapped."' },
               ].map((item) => (
                 <div key={item.year} className="flex gap-4 items-start">
                   <span className="text-accent font-black text-lg flex-shrink-0 w-12">{item.year}</span>
@@ -48,6 +47,17 @@ export default function Discovery() {
               ))}
             </div>
           </div>
+        </div>
+
+        {/* 2020 eLife callout */}
+        <div className="card-accent mb-16">
+          <p className="text-xs text-accent uppercase tracking-wider font-bold mb-4">The 2020 eLife Study</p>
+          <p className="text-text-secondary leading-relaxed">
+            In the landmark 2020 eLife study, aged mice given ISRIB regained the cognitive performance
+            of young mice — spatial memory, learning speed, and retention — after just a few doses.
+            The researchers described it as releasing a "brake" that had accumulated over years of
+            cellular stress. The improvements persisted long after dosing stopped.
+          </p>
         </div>
 
         {/* Peter Walter quote */}
